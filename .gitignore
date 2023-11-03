@@ -1,5 +1,7 @@
 # ignore visual studio folder
 .vs/
+.idea/
+bin/
 
 # ignore unnecessary build files
 source/EveryRay_Core/Debug/

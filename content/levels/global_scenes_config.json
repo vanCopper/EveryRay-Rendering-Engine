@@ -20,7 +20,11 @@
 		{
 			"scene_name" : "warehouseScene",
 			"scene_path" : "content\\levels\\private\\warehouseScene\\"
+		},
+		{
+			"scene_name" : "ShadowTech",
+			"scene_path" : "content\\levels\\ShadowTech\\"
 		}
 	],
-	"startup_scene" : "testScene_simple"
+	"startup_scene" : "ShadowTech"
 }
