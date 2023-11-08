@@ -119,7 +119,7 @@ namespace EveryRay_Core
 			{
 				assert(sphereRadius);
 				float texelUnit = static_cast<float>(mResolution) / (sphereRadius * 2.0f);
-
+				//texelUnit *= 2.0f;
 				XMMATRIX scale = XMMatrixScaling(texelUnit, texelUnit, texelUnit);
 
 				XMMATRIX baseViewMatrix = XMMatrixLookToRH({ 0.0, 0.0, 0.0, 1.0 }, direction, upDirection);

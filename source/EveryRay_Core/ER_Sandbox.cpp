@@ -27,6 +27,8 @@
 
 namespace EveryRay_Core {
 
+	int ER_Settings::ShadowsQuality = 2;
+
 	ER_Sandbox::ER_Sandbox()
 	{
 	}
@@ -129,7 +131,8 @@ namespace EveryRay_Core {
 
 		#pragma region INIT_SHADOWMAPPER
 		game.CPUProfiler()->BeginCPUTime("Shadow mapper init");
-        mShadowMapper = new ER_ShadowMapper(game, camera, *mDirectionalLight, (ShadowQuality)ER_Settings::ShadowsQuality);
+        // mShadowMapper = new ER_ShadowMapper(game, camera, *mDirectionalLight, (ShadowQuality)ER_Settings::ShadowsQuality);
+        mShadowMapper = new ER_ShadowMapper(game, camera, *mDirectionalLight, ShadowQuality::SHADOW_HIGH);
         mDirectionalLight->RotationUpdateEvent->AddListener("shadow mapper", [&]() { mShadowMapper->ApplyTransform(); });
 		game.CPUProfiler()->EndCPUTime("Shadow mapper init");
 #pragma endregion

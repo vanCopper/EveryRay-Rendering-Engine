@@ -314,7 +314,7 @@ namespace EveryRay_Core
 		}
 			
 		ImGui::SetNextWindowBgAlpha(0.9f); // Transparent background
-		if (ImGui::Begin("EveryRay - Rendering Engine: Configuration"))
+		if (ImGui::Begin("EveryRay(Copper) - Rendering Engine: Configuration"))
 		{
 			ImGui::TextColored(ImVec4(0.52f, 0.78f, 0.04f, 1), "Welcome to EveryRay!");
 			ImGui::Separator();

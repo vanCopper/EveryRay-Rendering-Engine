@@ -71,6 +71,7 @@ float Deferred_CalculateCSM(float3 worldPos, float4x4 svp, int index, float Shad
     float d2 = Dilation * ShadowTexelSize * 0.875;
     float d3 = Dilation * ShadowTexelSize * 0.625;
     float d4 = Dilation * ShadowTexelSize * 0.375;
+    // return CascadedShadowTexture.SampleCmpLevelZero(CascadedPcfShadowMapSampler, ShadowCoord.xy, ShadowCoord.z);
     float result = (
         2.0 * CascadedShadowTexture.SampleCmpLevelZero(CascadedPcfShadowMapSampler, ShadowCoord.xy, ShadowCoord.z) +
         CascadedShadowTexture.SampleCmpLevelZero(CascadedPcfShadowMapSampler, ShadowCoord.xy + float2(-d2, d1), ShadowCoord.z) +
