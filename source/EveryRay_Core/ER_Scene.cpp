@@ -157,7 +157,8 @@ namespace EveryRay_Core
 					mSceneJsonRoot["rendering_objects"][i]["name"].asString(), 
 					new ER_RenderingObject(mSceneJsonRoot["rendering_objects"][i]["name"].asString(), i, *mCore, mCamera, 
 						ER_Utility::GetFilePath(mSceneJsonRoot["rendering_objects"][i]["model_path"].asString()),
-						true, mSceneJsonRoot["rendering_objects"][i]["instanced"].asBool())
+						true, mSceneJsonRoot["rendering_objects"][i]["instanced"].asBool(),
+						mSceneJsonRoot["rendering_objects"][i]["castShadow"].asBool())
 				);
 			}
 			std::partition(objects.begin(), objects.end(), [](const ER_SceneObject& obj) {	return obj.second->IsInstanced(); });

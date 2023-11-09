@@ -24,7 +24,7 @@ namespace EveryRay_Core
 {
 	static int currentSplatChannnel = (int)TerrainSplatChannels::NONE;
 
-	ER_RenderingObject::ER_RenderingObject(const std::string& pName, int index, ER_Core& pCore, ER_Camera& pCamera, const std::string& pModelPath, bool availableInEditor, bool isInstanced)
+	ER_RenderingObject::ER_RenderingObject(const std::string& pName, int index, ER_Core& pCore, ER_Camera& pCamera, const std::string& pModelPath, bool availableInEditor, bool isInstanced, bool isCastShadow)
 		:
 		mCore(&pCore),
 		mCamera(pCamera),
@@ -34,6 +34,7 @@ namespace EveryRay_Core
 		mIsAvailableInEditorMode(availableInEditor),
 		mTransformationMatrix(XMMatrixIdentity()),
 		mIsInstanced(isInstanced),
+		mIsCastShadow(isCastShadow),
 		mIndexInScene(index),
 		mCurrentTextureQuality((RenderingObjectTextureQuality)ER_Settings::TexturesQuality)
 	{

@@ -38,7 +38,7 @@ namespace EveryRay_Core
 
 		float GetCameraFarShadowCascadeDistance(int index) const;
 		float GetCameraNearShadowCascadeDistance(int index) const;
-		XMMATRIX GetCustomViewProjectionMatrixForCascade(const XMMATRIX& viewMatrix, float fov, float aspectRatio, float nearPlaneDistance, int cascadeIndex) const;
+		// XMMATRIX GetCustomViewProjectionMatrixForCascade(const XMMATRIX& viewMatrix, float fov, float aspectRatio, float nearPlaneDistance, int cascadeIndex) const;
 
 	private:
 		XMMATRIX GetLightProjectionMatrixInFrustum(int index, ER_Frustum& cameraFrustum, ER_DirectionalLight& light);
@@ -51,7 +51,7 @@ namespace EveryRay_Core
 
 		std::vector<ER_RHI_GPUTexture*> mShadowMaps;
 		std::vector<ER_Projector> mLightProjectors;
-		std::vector<ER_Frustum> mCameraCascadesFrustums;
+		// std::vector<ER_Frustum> mCameraCascadesFrustums;
 		std::vector<XMFLOAT3> mLightProjectorCenteredPositions;
 
 		ER_RHI_RASTERIZER_STATE mOriginalRS;

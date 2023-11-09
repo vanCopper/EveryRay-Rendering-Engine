@@ -35,6 +35,7 @@ namespace EveryRay_Core
 		static bool IsWireframe;
 		static float DistancesLOD[MAX_LOD];
 		static float ShadowCascadeDistances[NUM_SHADOW_CASCADES];
+		static float ShadowCascadeExponentScale[8];
 	private:
 		ER_Utility();
 		ER_Utility(const ER_Utility& rhs);

@@ -152,7 +152,7 @@ namespace EveryRay_Core
 		using Delegate_MeshMaterialVariablesUpdate = std::function<void(int, int)>; // mesh index & lod index for input
 
 	public:
-		ER_RenderingObject(const std::string& pName, int index, ER_Core& pCore, ER_Camera& pCamera, const std::string& pModelPath, bool availableInEditor = false, bool isInstanced = false);
+		ER_RenderingObject(const std::string& pName, int index, ER_Core& pCore, ER_Camera& pCamera, const std::string& pModelPath, bool availableInEditor = false, bool isInstanced = false,  bool isCastShadow = true);
 		~ER_RenderingObject();
 
 		void LoadMaterial(ER_Material* pMaterial, const std::string& materialName);
@@ -224,6 +224,8 @@ namespace EveryRay_Core
 
 		bool IsInstanced() { return mIsInstanced; }
 		bool IsAvailableInEditor() { return mIsAvailableInEditorMode; }
+
+		bool IsCastShadow() {return mIsCastShadow; }
 
 		bool IsRendered() { return mIsRendered; }
 		void SetRendered(bool val) { mIsRendered = val; }
@@ -471,6 +473,7 @@ namespace EveryRay_Core
 		bool													mIsSelected = false;
 		bool													mIsRendered = true;
 		bool													mIsInstanced = false;
+		bool													mIsCastShadow = true;
 		bool													mIsForwardShading = false;
 		bool													mIsPOM = false;
 		bool													mIsCulled = false; //only for non-instanced objects

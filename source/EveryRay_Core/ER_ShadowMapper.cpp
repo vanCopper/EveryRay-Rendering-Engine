@@ -55,11 +55,11 @@ namespace EveryRay_Core
 			mShadowMaps.push_back(rhi->CreateGPUTexture(L"ER_RHI_GPUTexture: Shadow Map #" + std::to_wstring(i)));
 			mShadowMaps[i]->CreateGPUTextureResource(rhi, mResolution, mResolution, 1u, ER_FORMAT_D16_UNORM, ER_BIND_DEPTH_STENCIL | ER_BIND_SHADER_RESOURCE);
 
-			mCameraCascadesFrustums.push_back(XMMatrixIdentity());
-			if (isCascaded)
-				mCameraCascadesFrustums[i].SetMatrix(GetCustomViewProjectionMatrixForCascade(mCamera.ViewMatrix(), mCamera.FieldOfView(), mCamera.AspectRatio(), mCamera.NearPlaneDistance(), i));
-			else
-				mCameraCascadesFrustums[i].SetMatrix(mCamera.ProjectionMatrix());
+			// mCameraCascadesFrustums.push_back(XMMatrixIdentity());
+			// if (isCascaded)
+			// 	mCameraCascadesFrustums[i].SetMatrix(GetCustomViewProjectionMatrixForCascade(mCamera.ViewMatrix(), mCamera.FieldOfView(), mCamera.AspectRatio(), mCamera.NearPlaneDistance(), i));
+			// else
+			// 	mCameraCascadesFrustums[i].SetMatrix(mCamera.ProjectionMatrix());
 
 			mLightProjectors.emplace_back(pCore);
 			mLightProjectors[i].Initialize();
@@ -107,10 +107,10 @@ namespace EveryRay_Core
 
 		for (int i = 0; i < NUM_SHADOW_CASCADES; i++)
 		{
-			if (mIsCascaded)
-				mCameraCascadesFrustums[i].SetMatrix(GetCustomViewProjectionMatrixForCascade(mCamera.ViewMatrix(), mCamera.FieldOfView(), mCamera.AspectRatio(), mCamera.NearPlaneDistance(), i));
-			else
-				mCameraCascadesFrustums[i].SetMatrix(mCamera.ProjectionMatrix());
+			// if (mIsCascaded)
+			// 	mCameraCascadesFrustums[i].SetMatrix(GetCustomViewProjectionMatrixForCascade(mCamera.ViewMatrix(), mCamera.FieldOfView(), mCamera.AspectRatio(), mCamera.NearPlaneDistance(), i));
+			// else
+			// 	mCameraCascadesFrustums[i].SetMatrix(mCamera.ProjectionMatrix());
 
 			float sphereRadius = 0.0f;
 			XMMATRIX projectionMatrix = GetProjectionBoundingSphere(i, sphereRadius);
@@ -362,6 +362,10 @@ namespace EveryRay_Core
 					rhi->SetPSO(psoName);
 					for (int meshIndex = 0; meshIndex < renderingObject->GetMeshCount(); meshIndex++)
 					{
+						if(!renderingObject->IsCastShadow())
+						{
+							continue;
+						}
 						static_cast<ER_ShadowMapMaterial*>(material)->PrepareForRendering(materialSystems, renderingObject, meshIndex, i, mRootSignature);
 						if (!renderingObject->IsInstanced())
 							renderingObject->DrawLOD(materialName, true, meshIndex, renderingObject->GetLODCount() - 1); //drawing highest LOD
@@ -390,28 +394,28 @@ namespace EveryRay_Core
 		return ER_Utility::ShadowCascadeDistances[index - 1];
 	}
 
-	XMMATRIX ER_ShadowMapper::GetCustomViewProjectionMatrixForCascade(const XMMATRIX& viewMatrix, float fov, float aspectRatio, float nearPlaneDistance, int cascadeIndex) const
-	{
-		XMMATRIX projectionMatrix;
-		//float delta = 5.0f;
-
-		switch (cascadeIndex)
-		{
-		case 0:
-			projectionMatrix = XMMatrixPerspectiveFovRH(fov, aspectRatio, nearPlaneDistance, ER_Utility::ShadowCascadeDistances[0]);
-			break;
-		case 1:
-			projectionMatrix = XMMatrixPerspectiveFovRH(fov, aspectRatio, ER_Utility::ShadowCascadeDistances[0], ER_Utility::ShadowCascadeDistances[1]);
-			break;
-		case 2:
-			projectionMatrix = XMMatrixPerspectiveFovRH(fov, aspectRatio, ER_Utility::ShadowCascadeDistances[1], ER_Utility::ShadowCascadeDistances[2]);
-			break;
-
-
-		default:
-			projectionMatrix = XMMatrixPerspectiveFovRH(fov, aspectRatio, nearPlaneDistance, ER_Utility::ShadowCascadeDistances[2]);
-		}
-
-		return XMMatrixMultiply(viewMatrix, projectionMatrix);
-	}
+	// XMMATRIX ER_ShadowMapper::GetCustomViewProjectionMatrixForCascade(const XMMATRIX& viewMatrix, float fov, float aspectRatio, float nearPlaneDistance, int cascadeIndex) const
+	// {
+	// 	XMMATRIX projectionMatrix;
+	// 	//float delta = 5.0f;
+	//
+	// 	switch (cascadeIndex)
+	// 	{
+	// 	case 0:
+	// 		projectionMatrix = XMMatrixPerspectiveFovRH(fov, aspectRatio, nearPlaneDistance, ER_Utility::ShadowCascadeDistances[0]);
+	// 		break;
+	// 	case 1:
+	// 		projectionMatrix = XMMatrixPerspectiveFovRH(fov, aspectRatio, ER_Utility::ShadowCascadeDistances[0], ER_Utility::ShadowCascadeDistances[1]);
+	// 		break;
+	// 	case 2:
+	// 		projectionMatrix = XMMatrixPerspectiveFovRH(fov, aspectRatio, ER_Utility::ShadowCascadeDistances[1], ER_Utility::ShadowCascadeDistances[2]);
+	// 		break;
+	//
+	//
+	// 	default:
+	// 		projectionMatrix = XMMatrixPerspectiveFovRH(fov, aspectRatio, nearPlaneDistance, ER_Utility::ShadowCascadeDistances[2]);
+	// 	}
+	//
+	// 	return XMMatrixMultiply(viewMatrix, projectionMatrix);
+	// }
 }
