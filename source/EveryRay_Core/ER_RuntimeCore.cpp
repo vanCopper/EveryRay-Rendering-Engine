@@ -16,6 +16,7 @@
 #include "ER_Model.h"
 
 #include "..\JsonCpp\include\json\json.h"
+#include "RHI/DX11/ER_RHI_DX11.h"
 
 namespace EveryRay_Core
 {
@@ -110,6 +111,7 @@ namespace EveryRay_Core
 		ER_Core::Initialize();
 		LoadGlobalLevelsConfig();
 		SetLevel(mStartupSceneName, true);
+
 	}
 
 	void ER_RuntimeCore::LoadGlobalLevelsConfig()
@@ -355,6 +357,13 @@ namespace EveryRay_Core
 			if (ImGui::Button("Reload current level")) {
 				SetLevel(mCurrentSceneName);
 			}
+
+			if(ImGui::Button("Capture and Launch RenderDoc"))
+			{
+				mIsCaputureActive = true;
+				// ER_Utility::GetRenderDocAPI()->LaunchReplayUI(1, nullptr);
+				// ER_Utility::GetRenderDocAPI()->EndFrameCapture(nullptr, nullptr);
+			}
 		}
 		ImGui::End();
 		#pragma endregion
@@ -391,7 +400,20 @@ namespace EveryRay_Core
 	{
 		assert(mCurrentSandbox);
 		assert(mRHI);
-
+		
+		if(mIsCaputureActive)
+		{
+			ER_RHI_DX11* dx11 = ((ER_RHI_DX11*)mRHI);
+			if(dx11)
+			{
+				ER_Utility::GetRenderDocAPI()->StartFrameCapture(dx11->GetDevice(), GetActiveWindow());
+				// ER_Utility::GetRenderDocAPI()->TriggerMultiFrameCapture(1);
+				// ER_Utility::GetRenderDocAPI()->StartFrameCapture(nullptr, nullptr);
+				// mIsCaputureActive = false;
+				// mCaputureTime = std::chrono::duration<double>(0.0f);
+			}
+		}
+		
 		auto startRenderTimer = std::chrono::high_resolution_clock::now();
 
 		mRHI->BeginGraphicsCommandList();
@@ -416,6 +438,20 @@ namespace EveryRay_Core
 
 		auto endRenderTimer = std::chrono::high_resolution_clock::now();
 		mElapsedTimeRenderCPU = endRenderTimer - startRenderTimer;
+		
+		if(ER_Utility::GetRenderDocAPI()->IsFrameCapturing())
+		{
+			// mCaputureTime += mElapsedTimeRenderCPU;
+			// if(mCaputureTime.count() * 1000 > 1.0f)
+			// {
+				ER_RHI_DX11* dx11 = (ER_RHI_DX11*)mRHI;
+				if(dx11)
+				{
+					auto result = ER_Utility::GetRenderDocAPI()->EndFrameCapture(dx11->GetDevice(), GetActiveWindow());
+					mIsCaputureActive = false;
+				}
+			// }
+		}
 	}
 
 	ER_Model* ER_RuntimeCore::AddOrGet3DModelFromCache(const std::string& aFullPath, bool* didExist /*= nullptr*/, bool isSilent /*= false*/)

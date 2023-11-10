@@ -398,6 +398,7 @@ namespace EveryRay_Core
 		for(int i = 1; i < NUM_SHADOW_CASCADES; i++)
 		{
 			float si = i / static_cast<float>(NUM_SHADOW_CASCADES);
+			// algorithm from https://developer.nvidia.com/gpugems/GPUGems3/gpugems3_ch10.html
 			FrustomDistances[i].NearDistance = SplitWeight * (nearClip * powf(Ratio, si)) + (1.0f - SplitWeight) * (nearClip + (farClip - nearClip) * si);
 			FrustomDistances[i - 1].FarDistance = FrustomDistances[i].NearDistance;
 		}

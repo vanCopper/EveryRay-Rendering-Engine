@@ -79,6 +79,7 @@ namespace EveryRay_Core
 		bool mShowProfiler = false;
 		bool mShowCameraSettings = true;
 		bool mIsRHIReset = false;
+		bool mIsCaputureActive = false;
 
 		GraphicsQualityPreset mCurrentGfxQuality;
 	};

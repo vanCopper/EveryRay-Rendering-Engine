@@ -255,6 +255,7 @@
     <ClInclude Include="ER_VectorHelper.h" />
     <ClInclude Include="ER_VertexDeclarations.h" />
     <ClInclude Include="ER_VolumetricClouds.h" />
+    <ClInclude Include="ThirdParty\renderdoc_app.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\external\DirectXMath\SHMath\DirectXSH.cpp" />
@@ -629,6 +630,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="ER_Materials.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ThirdParty\lib\renderdoc.dll" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

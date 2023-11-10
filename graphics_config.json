@@ -1,4 +1,5 @@
 {
+	"renderdoc_dll_path" : "C:\\Program Files\\RenderDoc\\renderdoc.dll",
 	"current_preset" : "ultra low with high shadow quality",
 	"presets" :
 	[
