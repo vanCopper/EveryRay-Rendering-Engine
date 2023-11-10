@@ -53,6 +53,7 @@ namespace EveryRay_Core
 		float GetSunBrightness() { return mSunBrightness; }
 		float GetSunExponent() { return mSunExponent; }
 		float GetDirectionalLightIntensity() const { return mDirectionalLightIntensity; }
+		float GetCascadeShadowFarDistance() const { return mCascadeShadowFarDistance; }
 
 		ER_GenericEvent<Delegate_RotationUpdate>* RotationUpdateEvent = new ER_GenericEvent<Delegate_RotationUpdate>();
 
@@ -88,5 +89,7 @@ namespace EveryRay_Core
 		float mSunExponent = 10000;
 		float mSunBrightness = 2.637f;
 		float mDirectionalLightIntensity = 4.0f;
+
+		float mCascadeShadowFarDistance = 1000.0f;
 	};
 }

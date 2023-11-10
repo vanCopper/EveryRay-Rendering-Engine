@@ -1,5 +1,5 @@
 {
-	"current_preset" : "ultra low",
+	"current_preset" : "ultra low with high shadow quality",
 	"presets" :
 	[
 		{
@@ -9,6 +9,19 @@
 			"texture_quality" : 0,
 			"foliage_quality" : 0,
 			"shadow_quality" : 0,
+			"aa_quality" : 0,
+			"sss_quality" : 0,
+			"gi_quality" : 0,
+			"volumetric_fog_quality" : 0,
+			"volumetric_clouds_quality" : 0
+		},
+		{
+			"preset_name" : "ultra low with high shadow quality",
+			"resolution_width" : 1280,
+			"resolution_height" : 720,
+			"texture_quality" : 0,
+			"foliage_quality" : 0,
+			"shadow_quality" : 2,
 			"aa_quality" : 0,
 			"sss_quality" : 0,
 			"gi_quality" : 0,

@@ -17,6 +17,7 @@ namespace EveryRay_Core
 	enum GraphicsQualityPreset
 	{
 		ULTRA_LOW = 0,
+		ULTRA_LOW_WITH_HIGH_SHADOWS,
 		LOW,
 		MEDIUM,
 		HIGH,

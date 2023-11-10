@@ -15,6 +15,12 @@ namespace EveryRay_Core
 		FrustumPlaneBottom
 	};
 
+	struct FrustumDistance
+	{
+		float NearDistance;
+		float FarDistance;
+	};
+
 	class ER_Frustum
 	{
 	public:

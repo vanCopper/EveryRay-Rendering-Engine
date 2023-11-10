@@ -1,6 +1,7 @@
 #pragma once
 #include "Common.h"
 #include "ER_CoreComponent.h"
+#include "ER_Frustum.h"
 #include "RHI/ER_RHI.h"
 
 namespace EveryRay_Core
@@ -36,8 +37,10 @@ namespace EveryRay_Core
 		void ApplyTransform();
 		//void ApplyRotation();
 
+		void UpdateFrustumDistances(float nearClip, float farClip);
 		float GetCameraFarShadowCascadeDistance(int index) const;
 		float GetCameraNearShadowCascadeDistance(int index) const;
+
 		// XMMATRIX GetCustomViewProjectionMatrixForCascade(const XMMATRIX& viewMatrix, float fov, float aspectRatio, float nearPlaneDistance, int cascadeIndex) const;
 
 	private:
@@ -62,5 +65,7 @@ namespace EveryRay_Core
 		UINT mResolution = 0;
 		bool mIsCascaded = true;
 		bool mIsTexelSizeIncremented = true;
+
+		FrustumDistance FrustomDistances[NUM_SHADOW_CASCADES];
 	};
 }
