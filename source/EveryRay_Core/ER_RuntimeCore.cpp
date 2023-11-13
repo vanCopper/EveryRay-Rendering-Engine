@@ -361,12 +361,18 @@ namespace EveryRay_Core
 				SetLevel(mCurrentSceneName);
 			}
 
-			if(ImGui::Button("Capture and Launch RenderDoc"))
-			{
-				mIsCaputureActive = true;
-				// ER_Utility::GetRenderDocAPI()->LaunchReplayUI(1, nullptr);
-				// ER_Utility::GetRenderDocAPI()->EndFrameCapture(nullptr, nullptr);
-			}
+			
+		}
+		ImGui::End();
+
+		// Debug tool
+		ImGui::Begin("RenderDoc");
+		ImGui::Text("RenderDoc API: %d.%d.%d", 1.0, 0.0, 0.0);
+		if(ImGui::Button("Capture and Launch RenderDoc"))
+		{
+			mIsCaputureActive = true;
+			// ER_Utility::GetRenderDocAPI()->LaunchReplayUI(1, nullptr);
+			// ER_Utility::GetRenderDocAPI()->EndFrameCapture(nullptr, nullptr);
 		}
 		ImGui::End();
 		#pragma endregion
@@ -406,16 +412,12 @@ namespace EveryRay_Core
 		
 		if(mIsCaputureActive)
 		{
-			ER_RHI_DX11* dx11 = ((ER_RHI_DX11*)mRHI);
-			if(dx11)
-			{
-				ER_Utility::GetRenderDocAPI()->StartFrameCapture(nullptr, nullptr);
-				// ER_Utility::GetRenderDocAPI()->StartFrameCapture(dx11->GetDevice(), GetActiveWindow());
-				// ER_Utility::GetRenderDocAPI()->TriggerMultiFrameCapture(1);
-				// ER_Utility::GetRenderDocAPI()->StartFrameCapture(nullptr, nullptr);
-				// mIsCaputureActive = false;
-				// mCaputureTime = std::chrono::duration<double>(0.0f);
-			}
+			ER_Utility::GetRenderDocAPI()->StartFrameCapture(nullptr, nullptr);
+			// ER_Utility::GetRenderDocAPI()->StartFrameCapture(dx11->GetDevice(), GetActiveWindow());
+			// ER_Utility::GetRenderDocAPI()->TriggerMultiFrameCapture(1);
+			// ER_Utility::GetRenderDocAPI()->StartFrameCapture(nullptr, nullptr);
+			// mIsCaputureActive = false;
+			// mCaputureTime = std::chrono::duration<double>(0.0f);
 		}
 		
 		auto startRenderTimer = std::chrono::high_resolution_clock::now();
@@ -445,18 +447,9 @@ namespace EveryRay_Core
 		
 		if(ER_Utility::GetRenderDocAPI()->IsFrameCapturing())
 		{
-			// mCaputureTime += mElapsedTimeRenderCPU;
-			// if(mCaputureTime.count() * 1000 > 1.0f)
-			// {
-				ER_RHI_DX11* dx11 = (ER_RHI_DX11*)mRHI;
-				if(dx11)
-				{
-					// auto result = ER_Utility::GetRenderDocAPI()->EndFrameCapture(dx11->GetDevice(), GetActiveWindow());
-					auto result = ER_Utility::GetRenderDocAPI()->EndFrameCapture(nullptr, nullptr);
-					mIsCaputureActive = false;
-					ER_Utility::GetRenderDocAPI()->LaunchReplayUI(1, nullptr);
-				}
-			// }
+			auto result = ER_Utility::GetRenderDocAPI()->EndFrameCapture(nullptr, nullptr);
+			mIsCaputureActive = false;
+			ER_Utility::GetRenderDocAPI()->LaunchReplayUI(1, nullptr);
 		}
 	}
 

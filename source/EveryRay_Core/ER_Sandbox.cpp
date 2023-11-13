@@ -322,6 +322,8 @@ namespace EveryRay_Core {
 		//TODO skybox config
 
         ImGui::End();
+
+		
     }
 
 	void ER_Sandbox::Draw(ER_Core& game, const ER_CoreTime& gameTime)

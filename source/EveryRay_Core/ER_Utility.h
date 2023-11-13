@@ -28,7 +28,6 @@ namespace EveryRay_Core
 		static float RandomFloat(float a, float b);
 
 		// Replace with: https://sourcegraph.com/github.com/nCine/nCine/-/blob/src/graphics/RenderDocCapture.cpp
-		// Blog: https://mellinoe.dev/graphics/2019/01/23/renderdoc-integration-in-veldrid.html
 		static void InitializeRenderDoc();
 		static RENDERDOC_API_1_1_1* GetRenderDocAPI();
 
