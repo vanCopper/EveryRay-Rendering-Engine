@@ -103,6 +103,9 @@ namespace EveryRay_Core
 
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 
+		std::string fontPath = ER_Utility::GetFilePath("external\\Fonts\\Consolas.ttf");
+		io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 13.0f);
+
 		ImGui_ImplWin32_Init(mWindowHandle);
 		if (mRHI)
 			mRHI->InitImGui();
@@ -406,7 +409,8 @@ namespace EveryRay_Core
 			ER_RHI_DX11* dx11 = ((ER_RHI_DX11*)mRHI);
 			if(dx11)
 			{
-				ER_Utility::GetRenderDocAPI()->StartFrameCapture(dx11->GetDevice(), GetActiveWindow());
+				ER_Utility::GetRenderDocAPI()->StartFrameCapture(nullptr, nullptr);
+				// ER_Utility::GetRenderDocAPI()->StartFrameCapture(dx11->GetDevice(), GetActiveWindow());
 				// ER_Utility::GetRenderDocAPI()->TriggerMultiFrameCapture(1);
 				// ER_Utility::GetRenderDocAPI()->StartFrameCapture(nullptr, nullptr);
 				// mIsCaputureActive = false;
@@ -447,8 +451,10 @@ namespace EveryRay_Core
 				ER_RHI_DX11* dx11 = (ER_RHI_DX11*)mRHI;
 				if(dx11)
 				{
-					auto result = ER_Utility::GetRenderDocAPI()->EndFrameCapture(dx11->GetDevice(), GetActiveWindow());
+					// auto result = ER_Utility::GetRenderDocAPI()->EndFrameCapture(dx11->GetDevice(), GetActiveWindow());
+					auto result = ER_Utility::GetRenderDocAPI()->EndFrameCapture(nullptr, nullptr);
 					mIsCaputureActive = false;
+					ER_Utility::GetRenderDocAPI()->LaunchReplayUI(1, nullptr);
 				}
 			// }
 		}

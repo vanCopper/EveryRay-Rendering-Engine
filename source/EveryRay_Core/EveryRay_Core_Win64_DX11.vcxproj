@@ -631,9 +631,6 @@
     </None>
     <None Include="ER_Materials.inl" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="ThirdParty\lib\renderdoc.dll" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
