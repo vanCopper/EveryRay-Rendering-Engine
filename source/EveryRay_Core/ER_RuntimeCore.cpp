@@ -16,7 +16,6 @@
 #include "ER_Model.h"
 
 #include "..\JsonCpp\include\json\json.h"
-#include "RHI/DX11/ER_RHI_DX11.h"
 
 namespace EveryRay_Core
 {

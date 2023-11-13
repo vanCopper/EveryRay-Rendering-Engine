@@ -59,6 +59,7 @@ namespace EveryRay_Core
 		float mWindStrength = 1.0f;
 		float mWindFrequency = 1.0f;
 		float mWindGustDistance = 1.0f;
+		float mFrustumSplitWeight = 0.04f;
 	};
 
 }

@@ -40,6 +40,7 @@ namespace EveryRay_Core
 		void UpdateFrustumDistances(float nearClip, float farClip);
 		float GetCameraFarShadowCascadeDistance(int index) const;
 		float GetCameraNearShadowCascadeDistance(int index) const;
+		void UpdateFrustomSplitWeight(float weight) { FrustumSplitWeight = weight; }
 
 		// XMMATRIX GetCustomViewProjectionMatrixForCascade(const XMMATRIX& viewMatrix, float fov, float aspectRatio, float nearPlaneDistance, int cascadeIndex) const;
 
@@ -66,6 +67,7 @@ namespace EveryRay_Core
 		bool mIsCascaded = true;
 		bool mIsTexelSizeIncremented = true;
 
-		FrustumDistance FrustomDistances[NUM_SHADOW_CASCADES];
+		FrustumDistance FrustumDistances[NUM_SHADOW_CASCADES];
+		float FrustumSplitWeight = 0.04;
 	};
 }

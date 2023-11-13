@@ -392,36 +392,36 @@ namespace EveryRay_Core
 	void ER_ShadowMapper::UpdateFrustumDistances(float nearClip, float farClip)
 	{
 		assert(NUM_SHADOW_CASCADES > 0);
-		float SplitWeight = 0.04;
+		
 		float Ratio = farClip / nearClip;
 
 		for(int i = 1; i < NUM_SHADOW_CASCADES; i++)
 		{
 			float si = i / static_cast<float>(NUM_SHADOW_CASCADES);
 			// algorithm from https://developer.nvidia.com/gpugems/GPUGems3/gpugems3_ch10.html
-			FrustomDistances[i].NearDistance = SplitWeight * (nearClip * powf(Ratio, si)) + (1.0f - SplitWeight) * (nearClip + (farClip - nearClip) * si);
-			FrustomDistances[i - 1].FarDistance = FrustomDistances[i].NearDistance;
+			FrustumDistances[i].NearDistance = FrustumSplitWeight * (nearClip * powf(Ratio, si)) + (1.0f - FrustumSplitWeight) * (nearClip + (farClip - nearClip) * si);
+			FrustumDistances[i - 1].FarDistance = FrustumDistances[i].NearDistance;
 		}
 
-		FrustomDistances[0].NearDistance = nearClip;
-		FrustomDistances[NUM_SHADOW_CASCADES - 1].FarDistance = farClip;
+		FrustumDistances[0].NearDistance = nearClip;
+		FrustumDistances[NUM_SHADOW_CASCADES - 1].FarDistance = farClip;
 	}
 	
 	float ER_ShadowMapper::GetCameraFarShadowCascadeDistance(int index) const
 	{
 		assert(index < NUM_SHADOW_CASCADES);
-		// return FrustomDistances[index].FarDistance;
+		return FrustumDistances[index].FarDistance;
 		// assert(index < (sizeof(ER_Utility::ShadowCascadeDistances) / sizeof(ER_Utility::ShadowCascadeDistances[0])));
-		return ER_Utility::ShadowCascadeDistances[index];
+		// return ER_Utility::ShadowCascadeDistances[index];
 	}
 	float ER_ShadowMapper::GetCameraNearShadowCascadeDistance(int index) const
 	{
 		assert(index < NUM_SHADOW_CASCADES);
-		// return FrustomDistances[index].NearDistance;
+		return FrustumDistances[index].NearDistance;
 		// assert(index > 0); // get camera's near place instead
 		// assert(index < (sizeof(ER_Utility::ShadowCascadeDistances) / sizeof(ER_Utility::ShadowCascadeDistances[0])));
 		//
-		return ER_Utility::ShadowCascadeDistances[index - 1];
+		// return ER_Utility::ShadowCascadeDistances[index - 1];
 	}
 
 	// XMMATRIX ER_ShadowMapper::GetCustomViewProjectionMatrixForCascade(const XMMATRIX& viewMatrix, float fov, float aspectRatio, float nearPlaneDistance, int cascadeIndex) const

@@ -272,7 +272,10 @@ namespace EveryRay_Core {
 		mIllumination->Update(gameTime, mScene);
 		if (mScene->HasLightProbesSupport() && mLightProbesManager->IsEnabled())
 			mLightProbesManager->UpdateProbes(game);
+
+		mShadowMapper->UpdateFrustomSplitWeight(mFrustumSplitWeight);
 		mShadowMapper->Update(gameTime);
+
 		if (mFoliageSystem && mScene->HasFoliage())
 			mFoliageSystem->Update(gameTime, mWindGustDistance, mWindStrength, mWindFrequency);
 		mDirectionalLight->UpdateProxyModel(gameTime, 
@@ -309,6 +312,16 @@ namespace EveryRay_Core {
 
 		if (ImGui::Button("Terrain") && mTerrain)
 			mTerrain->Config();
+
+		if (ImGui::CollapsingHeader("Shadow"))
+		{
+			ImGui::SliderFloat("Frustum Split Weight", &mFrustumSplitWeight, 0.0f, 1.0f);
+			for (int i = 0; i < NUM_SHADOW_CASCADES; i++)
+			{
+				ImGui::Text("Cascade %d - Near: %f, Far: %f ", i,
+					mShadowMapper->GetCameraNearShadowCascadeDistance(i), mShadowMapper->GetCameraFarShadowCascadeDistance(i));
+			}
+		}
 
 		//TODO remove from here
 		if (ImGui::CollapsingHeader("Wind"))
