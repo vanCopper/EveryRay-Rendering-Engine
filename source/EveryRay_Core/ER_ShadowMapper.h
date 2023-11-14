@@ -41,6 +41,7 @@ namespace EveryRay_Core
 		float GetCameraFarShadowCascadeDistance(int index) const;
 		float GetCameraNearShadowCascadeDistance(int index) const;
 		void UpdateFrustomSplitWeight(float weight) { FrustumSplitWeight = weight; }
+		void UpdateShadowTransitionScale(float scale) { ShadowTransitionScale = scale; }
 
 		// XMMATRIX GetCustomViewProjectionMatrixForCascade(const XMMATRIX& viewMatrix, float fov, float aspectRatio, float nearPlaneDistance, int cascadeIndex) const;
 
@@ -69,5 +70,7 @@ namespace EveryRay_Core
 
 		FrustumDistance FrustumDistances[NUM_SHADOW_CASCADES];
 		float FrustumSplitWeight = 0.04;
+		/** Proportion of the fade region between cascades. */
+		float ShadowTransitionScale = 0.1;
 	};
 }

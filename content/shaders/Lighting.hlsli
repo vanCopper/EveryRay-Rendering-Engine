@@ -71,7 +71,7 @@ float Deferred_CalculateCSM(float3 worldPos, float4x4 svp, int index, float Shad
     float d2 = Dilation * ShadowTexelSize * 0.875;
     float d3 = Dilation * ShadowTexelSize * 0.625;
     float d4 = Dilation * ShadowTexelSize * 0.375;
-    return CascadedShadowTexture.SampleCmpLevelZero(CascadedPcfShadowMapSampler, ShadowCoord.xy, ShadowCoord.z);
+    // return CascadedShadowTexture.SampleCmpLevelZero(CascadedPcfShadowMapSampler, ShadowCoord.xy, ShadowCoord.z);
     float result = (
         2.0 * CascadedShadowTexture.SampleCmpLevelZero(CascadedPcfShadowMapSampler, ShadowCoord.xy, ShadowCoord.z) +
         CascadedShadowTexture.SampleCmpLevelZero(CascadedPcfShadowMapSampler, ShadowCoord.xy + float2(-d2, d1), ShadowCoord.z) +
@@ -90,6 +90,12 @@ float Deferred_GetShadow(float4 worldPos, float4x4 ShadowMatrices[NUM_SHADOW_CAS
     in SamplerComparisonState CascadedPcfShadowMapSampler)
 {
     float depthDistance = worldPos.a;
+
+    // if(depthDistance < ShadowCascadeDistances.x)
+    // {
+    //     float result = Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[0], 0, ShadowTexelSize, CascadedShadowTextures[0], CascadedPcfShadowMapSampler);
+    //     float resultNext = Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[1], 1, ShadowTexelSize, CascadedShadowTextures[1], CascadedPcfShadowMapSampler);
+    // }
     
     if (depthDistance < ShadowCascadeDistances.x)
         return Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[0], 0, ShadowTexelSize, CascadedShadowTextures[0], CascadedPcfShadowMapSampler);

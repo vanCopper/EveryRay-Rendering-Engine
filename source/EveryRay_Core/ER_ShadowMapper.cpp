@@ -44,7 +44,7 @@ namespace EveryRay_Core
 			mResolution = 1024;
 			break;
 		case ShadowQuality::SHADOW_HIGH:
-			mResolution = 4096;
+			mResolution = 2048;
 			break;
 		}
 
@@ -401,6 +401,10 @@ namespace EveryRay_Core
 			// algorithm from https://developer.nvidia.com/gpugems/GPUGems3/gpugems3_ch10.html
 			FrustumDistances[i].NearDistance = FrustumSplitWeight * (nearClip * powf(Ratio, si)) + (1.0f - FrustumSplitWeight) * (nearClip + (farClip - nearClip) * si);
 			FrustumDistances[i - 1].FarDistance = FrustumDistances[i].NearDistance;
+
+			// add fade region between cascades
+			float Distance = FrustumDistances[i].FarDistance - FrustumDistances[i].NearDistance;
+			FrustumDistances[i].NearDistance = FrustumDistances[i].NearDistance - Distance * ShadowTransitionScale;
 		}
 
 		FrustumDistances[0].NearDistance = nearClip;

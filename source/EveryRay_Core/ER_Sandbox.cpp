@@ -274,6 +274,7 @@ namespace EveryRay_Core {
 			mLightProbesManager->UpdateProbes(game);
 
 		mShadowMapper->UpdateFrustomSplitWeight(mFrustumSplitWeight);
+		mShadowMapper->UpdateShadowTransitionScale(mShadowTransitionScale);
 		mShadowMapper->Update(gameTime);
 
 		if (mFoliageSystem && mScene->HasFoliage())
@@ -321,6 +322,8 @@ namespace EveryRay_Core {
 				ImGui::Text("Cascade %d - Near: %f, Far: %f ", i,
 					mShadowMapper->GetCameraNearShadowCascadeDistance(i), mShadowMapper->GetCameraFarShadowCascadeDistance(i));
 			}
+
+			ImGui::SliderFloat("Shadow Transition Scale", &mShadowTransitionScale, 0.0f, 0.6f);
 		}
 
 		//TODO remove from here
