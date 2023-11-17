@@ -275,6 +275,7 @@ namespace EveryRay_Core {
 
 		mShadowMapper->UpdateFrustomSplitWeight(mFrustumSplitWeight);
 		mShadowMapper->UpdateShadowTransitionScale(mShadowTransitionScale);
+		mShadowMapper->SetDebugShadowCascades(mDebugShadowCascade);
 		mShadowMapper->Update(gameTime);
 
 		if (mFoliageSystem && mScene->HasFoliage())
@@ -316,6 +317,7 @@ namespace EveryRay_Core {
 
 		if (ImGui::CollapsingHeader("Shadow"))
 		{
+			ImGui::Checkbox("Debug Shadow Cascade", &mDebugShadowCascade);
 			ImGui::SliderFloat("Frustum Split Weight", &mFrustumSplitWeight, 0.0f, 1.0f);
 			for (int i = 0; i < NUM_SHADOW_CASCADES; i++)
 			{

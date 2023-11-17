@@ -814,7 +814,7 @@ namespace EveryRay_Core {
 		mDeferredLightingConstantBuffer.Data.ViewProj = XMMatrixTranspose(mCamera.ViewMatrix() * mCamera.ProjectionMatrix());
 		mDeferredLightingConstantBuffer.Data.ShadowCascadeDistances = XMFLOAT4{ 
 			mShadowMapper.GetCameraFarShadowCascadeDistance(0), mShadowMapper.GetCameraFarShadowCascadeDistance(1), mShadowMapper.GetCameraFarShadowCascadeDistance(2),
-			mDebugShadowCascades ? 1.0f : 0.0f };
+			mShadowMapper.IsDebugShadowCascades() ? 1.0f : 0.0f };
 		mDeferredLightingConstantBuffer.Data.ShadowTexelSize = XMFLOAT4{ 1.0f / mShadowMapper.GetResolution(), 1.0f, 1.0f , 1.0f };
 		mDeferredLightingConstantBuffer.Data.SunDirection = XMFLOAT4{ -mDirectionalLight.Direction().x, -mDirectionalLight.Direction().y, -mDirectionalLight.Direction().z, 1.0f };
 		mDeferredLightingConstantBuffer.Data.SunColor = XMFLOAT4{ mDirectionalLight.GetDirectionalLightColor().x, mDirectionalLight.GetDirectionalLightColor().y, mDirectionalLight.GetDirectionalLightColor().z, mDirectionalLight.GetDirectionalLightIntensity() };

@@ -72,5 +72,17 @@ namespace EveryRay_Core
 		float FrustumSplitWeight = 0.04;
 		/** Proportion of the fade region between cascades. */
 		float ShadowTransitionScale = 0.1;
+		bool DebugShadowCascades = false;
+
+	public:
+		bool IsDebugShadowCascades() const
+		{
+			return DebugShadowCascades;
+		}
+
+		void SetDebugShadowCascades(bool debugShadowCascades)
+		{
+			DebugShadowCascades = debugShadowCascades;
+		}
 	};
 }
