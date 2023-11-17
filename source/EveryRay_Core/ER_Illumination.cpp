@@ -810,7 +810,11 @@ namespace EveryRay_Core {
 			return;
 
 		for (size_t i = 0; i < NUM_SHADOW_CASCADES; i++)
+		{
 			mDeferredLightingConstantBuffer.Data.ShadowMatrices[i] = mShadowMapper.GetViewMatrix(i) * mShadowMapper.GetProjectionMatrix(i) /** XMLoadFloat4x4(&ER_MatrixHelper::GetProjectionShadowMatrix())*/;
+			mDeferredLightingConstantBuffer.Data.ShadowCascadeFrustumSplits[i] = XMFLOAT4(mShadowMapper.GetCameraNearShadowCascadeDistance(i),
+																								mShadowMapper.GetCameraFarShadowCascadeDistance(i), 0.0f, 0.0f);
+		}
 		mDeferredLightingConstantBuffer.Data.ViewProj = XMMatrixTranspose(mCamera.ViewMatrix() * mCamera.ProjectionMatrix());
 		mDeferredLightingConstantBuffer.Data.ShadowCascadeDistances = XMFLOAT4{ 
 			mShadowMapper.GetCameraFarShadowCascadeDistance(0), mShadowMapper.GetCameraFarShadowCascadeDistance(1), mShadowMapper.GetCameraFarShadowCascadeDistance(2),

@@ -409,7 +409,7 @@ namespace EveryRay_Core
 		assert(mCurrentSandbox);
 		assert(mRHI);
 		
-		if(mIsCaputureActive)
+		if(mIsCaputureActive && ER_Utility::GetRenderDocAPI())
 		{
 			ER_Utility::GetRenderDocAPI()->StartFrameCapture(nullptr, nullptr);
 			// ER_Utility::GetRenderDocAPI()->StartFrameCapture(dx11->GetDevice(), GetActiveWindow());
@@ -444,7 +444,7 @@ namespace EveryRay_Core
 		auto endRenderTimer = std::chrono::high_resolution_clock::now();
 		mElapsedTimeRenderCPU = endRenderTimer - startRenderTimer;
 		
-		if(ER_Utility::GetRenderDocAPI()->IsFrameCapturing())
+		if(ER_Utility::GetRenderDocAPI() && ER_Utility::GetRenderDocAPI()->IsFrameCapturing())
 		{
 			auto result = ER_Utility::GetRenderDocAPI()->EndFrameCapture(nullptr, nullptr);
 			mIsCaputureActive = false;

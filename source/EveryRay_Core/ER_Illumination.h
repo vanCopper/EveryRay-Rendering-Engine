@@ -67,6 +67,7 @@ namespace EveryRay_Core
 			XMMATRIX ShadowMatrices[NUM_SHADOW_CASCADES];
 			XMMATRIX ViewProj;
 			XMFLOAT4 ShadowCascadeDistances;
+			XMFLOAT4 ShadowCascadeFrustumSplits[NUM_SHADOW_CASCADES];
 			XMFLOAT4 ShadowTexelSize;
 			XMFLOAT4 SunDirection;
 			XMFLOAT4 SunColor;

@@ -35,6 +35,7 @@ cbuffer DeferredLightingCBuffer : register(b0)
     float4x4 ShadowMatrices[NUM_OF_SHADOW_CASCADES];
     float4x4 ViewProj;
     float4 ShadowCascadeDistances;
+    float4 ShadowCascadeFrustumSplits[NUM_OF_SHADOW_CASCADES];
     float4 ShadowTexelSize;
     float4 SunDirection;
     float4 SunColor;
@@ -138,7 +139,7 @@ void CSMain(uint3 Gid : SV_GroupID, uint3 GTid : SV_GroupThreadID, uint3 DTid : 
             probesInfo, SamplerLinear, SamplerClamp, IntegrationTexture, ao, skipIndirectSpecular);
     }
     
-    float shadow = Deferred_GetShadow(worldPos, ShadowMatrices, ShadowCascadeDistances, ShadowTexelSize.x, CascadedShadowTextures, CascadedPcfShadowMapSampler);
+    float shadow = Deferred_GetShadow(worldPos, ShadowMatrices, ShadowCascadeDistances, ShadowCascadeFrustumSplits, ShadowTexelSize.x, CascadedShadowTextures, CascadedPcfShadowMapSampler);
     
     float3 color = (directLighting * shadow) + indirectLighting;
 
@@ -146,11 +147,11 @@ void CSMain(uint3 Gid : SV_GroupID, uint3 GTid : SV_GroupThreadID, uint3 DTid : 
     if (ShadowCascadeDistances.w > 0.0)
     {
         float depthDistance = worldPos.a;
-        if (depthDistance < ShadowCascadeDistances.x)
+        if (depthDistance < ShadowCascadeFrustumSplits[0].y)
             color *= float4(1.0, 0.0, 0.0, 1.0);
-        else if (depthDistance < ShadowCascadeDistances.y)
+        else if (depthDistance < ShadowCascadeFrustumSplits[1].y)
             color *= float4(0.0, 1.0, 0.0, 1.0);
-        else if (depthDistance < ShadowCascadeDistances.z)
+        else if (depthDistance < ShadowCascadeFrustumSplits[2].y)
             color *= float4(0.0, 0.0, 1.0, 1.0);
         else
             color *= float4(1.0, 0.0, 1.0, 1.0);
