@@ -35,7 +35,7 @@ cbuffer DeferredLightingCBuffer : register(b0)
     float4x4 ShadowMatrices[NUM_OF_SHADOW_CASCADES];
     float4x4 ViewProj;
     float4 ShadowCascadeDistances;
-    float4 ShadowCascadeFrustumSplits[NUM_OF_SHADOW_CASCADES];
+    float2 ShadowCascadeFrustumSplits[NUM_OF_SHADOW_CASCADES];
     float4 ShadowTexelSize;
     float4 SunDirection;
     float4 SunColor;

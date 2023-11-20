@@ -86,7 +86,7 @@ float Deferred_CalculateCSM(float3 worldPos, float4x4 svp, int index, float Shad
 
     return result * result;
 }
-float Deferred_GetShadow(float4 worldPos, float4x4 ShadowMatrices[NUM_SHADOW_CASCADES], float4 ShadowCascadeDistances, float4 ShadowCascadeFrustumSplits[NUM_SHADOW_CASCADES], float ShadowTexelSize, in Texture2D<float> CascadedShadowTextures[NUM_SHADOW_CASCADES],
+float Deferred_GetShadow(float4 worldPos, float4x4 ShadowMatrices[NUM_SHADOW_CASCADES], float4 ShadowCascadeDistances, float2 ShadowCascadeFrustumSplits[NUM_SHADOW_CASCADES], float ShadowTexelSize, in Texture2D<float> CascadedShadowTextures[NUM_SHADOW_CASCADES],
     in SamplerComparisonState CascadedPcfShadowMapSampler)
 {
     float depthDistance = worldPos.a;

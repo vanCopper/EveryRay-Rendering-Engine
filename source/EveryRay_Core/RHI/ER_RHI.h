@@ -557,6 +557,7 @@ namespace EveryRay_Core
 		void Initialize(ER_RHI* rhi, const std::string& aName)
 		{
 			buffer = rhi->CreateGPUBuffer(aName);
+			// buffer->CreateGPUBufferResource(rhi, &Data, 1, ER_BitmaskAlign(static_cast<UINT>(sizeof(T)), ER_GPU_BUFFER_ALIGNMENT), true, ER_BIND_CONSTANT_BUFFER);
 			buffer->CreateGPUBufferResource(rhi, &Data, 1, ER_BitmaskAlign(static_cast<UINT>(sizeof(T)), ER_GPU_BUFFER_ALIGNMENT), true, ER_BIND_CONSTANT_BUFFER);
 			initialized = true;
 		}
