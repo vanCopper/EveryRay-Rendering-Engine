@@ -45,7 +45,8 @@ cbuffer DeferredLightingCBuffer : register(b0)
     float SSSWidth;
     float SSSDirectionLightMaxPlane;
     float SSSAvailable;
-    bool HasGlobalProbe;
+    bool  HasGlobalProbe;
+    float ShadowTransitionScale;
 }
 
 cbuffer LightProbesCBuffer : register(b1)
@@ -139,7 +140,7 @@ void CSMain(uint3 Gid : SV_GroupID, uint3 GTid : SV_GroupThreadID, uint3 DTid : 
             probesInfo, SamplerLinear, SamplerClamp, IntegrationTexture, ao, skipIndirectSpecular);
     }
     
-    float shadow = Deferred_GetShadow(worldPos, ShadowMatrices, ShadowCascadeDistances, ShadowCascadeFrustumSplits, ShadowTexelSize.x, CascadedShadowTextures, CascadedPcfShadowMapSampler);
+    float shadow = Deferred_GetShadow(worldPos, ShadowMatrices, ShadowCascadeDistances, ShadowCascadeFrustumSplits, ShadowTexelSize.x, ShadowTransitionScale, CascadedShadowTextures, CascadedPcfShadowMapSampler);
     
     float3 color = (directLighting * shadow) + indirectLighting;
 

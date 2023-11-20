@@ -86,40 +86,44 @@ float Deferred_CalculateCSM(float3 worldPos, float4x4 svp, int index, float Shad
 
     return result * result;
 }
-float Deferred_GetShadow(float4 worldPos, float4x4 ShadowMatrices[NUM_SHADOW_CASCADES], float4 ShadowCascadeDistances, float2 ShadowCascadeFrustumSplits[NUM_SHADOW_CASCADES], float ShadowTexelSize, in Texture2D<float> CascadedShadowTextures[NUM_SHADOW_CASCADES],
+float Deferred_GetShadow(float4 worldPos, float4x4 ShadowMatrices[NUM_SHADOW_CASCADES], float4 ShadowCascadeDistances, float2 ShadowCascadeFrustumSplits[NUM_SHADOW_CASCADES], float ShadowTexelSize, float ShadowTransitionScale, in Texture2D<float> CascadedShadowTextures[NUM_SHADOW_CASCADES],
     in SamplerComparisonState CascadedPcfShadowMapSampler)
 {
     float depthDistance = worldPos.a;
-    // float transitionFactor = 0.0;
-    //
-    // if(depthDistance < ShadowCascadeDistances.x)
-    // {
-    //     float result = Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[0], 0, ShadowTexelSize, CascadedShadowTextures[0], CascadedPcfShadowMapSampler);
-    //     float resultNext = Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[1], 1, ShadowTexelSize, CascadedShadowTextures[1], CascadedPcfShadowMapSampler);
-    //     transitionFactor = saturate((depthDistance - ShadowCascadeFrustumSplits[0].x) / (ShadowCascadeDistances.y - ShadowCascadeDistances.x));
-    //     return lerp(result, resultNext, transitionFactor);
-    // }else if(depthDistance < ShadowCascadeDistances.y)
-    // {
-    //     float result = Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[1], 1, ShadowTexelSize, CascadedShadowTextures[1], CascadedPcfShadowMapSampler);
-    //     float resultNext = Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[2], 2, ShadowTexelSize, CascadedShadowTextures[2], CascadedPcfShadowMapSampler);
-    //     transitionFactor = saturate((depthDistance - ShadowCascadeDistances.y) / (ShadowCascadeDistances.z - ShadowCascadeDistances.y));
-    //     return lerp(result, resultNext, transitionFactor);
-    // }else if(depthDistance < ShadowCascadeDistances.z)
-    // {
-    //     return Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[2], 2, ShadowTexelSize, CascadedShadowTextures[2], CascadedPcfShadowMapSampler);
-    // }else
-    // {
-    //     return 1.0f;
-    // }
+    float transitionFactor = 0.0;
     
-    if (depthDistance < ShadowCascadeFrustumSplits[0].y)
-        return Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[0], 0, ShadowTexelSize, CascadedShadowTextures[0], CascadedPcfShadowMapSampler);
-    else if (depthDistance < ShadowCascadeFrustumSplits[1].y)
+    if(depthDistance < ShadowCascadeFrustumSplits[0].y)
+    {
+        float result = Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[0], 0, ShadowTexelSize, CascadedShadowTextures[0], CascadedPcfShadowMapSampler);
+        float resultNext = Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[1], 1, ShadowTexelSize, CascadedShadowTextures[1], CascadedPcfShadowMapSampler);
+
+        float FadeLength = ShadowCascadeFrustumSplits[1].y - ShadowCascadeFrustumSplits[1].x;
+        float FadeStart = ShadowCascadeFrustumSplits[1].x - FadeLength * ShadowTransitionScale;
+        transitionFactor = saturate((depthDistance - FadeStart) / FadeLength);
+        return lerp(result, resultNext, transitionFactor);
+    }else if(depthDistance < ShadowCascadeFrustumSplits[1].y)
+    {
+        // float result = Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[1], 1, ShadowTexelSize, CascadedShadowTextures[1], CascadedPcfShadowMapSampler);
+        // float resultNext = Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[2], 2, ShadowTexelSize, CascadedShadowTextures[2], CascadedPcfShadowMapSampler);
+        // transitionFactor = saturate((depthDistance - ShadowCascadeDistances.y) / (ShadowCascadeDistances.z - ShadowCascadeDistances.y));
+        // return lerp(result, resultNext, transitionFactor);
         return Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[1], 1, ShadowTexelSize, CascadedShadowTextures[1], CascadedPcfShadowMapSampler);
-    else if (depthDistance < ShadowCascadeFrustumSplits[2].y)
+    }else if(depthDistance < ShadowCascadeFrustumSplits[2].y)
+    {
         return Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[2], 2, ShadowTexelSize, CascadedShadowTextures[2], CascadedPcfShadowMapSampler);
-    else
-       return 1.0f;
+    }else
+    {
+        return 1.0f;
+    }
+    
+    // if (depthDistance < ShadowCascadeFrustumSplits[0].y)
+    //     return Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[0], 0, ShadowTexelSize, CascadedShadowTextures[0], CascadedPcfShadowMapSampler);
+    // else if (depthDistance < ShadowCascadeFrustumSplits[1].y)
+    //     return Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[1], 1, ShadowTexelSize, CascadedShadowTextures[1], CascadedPcfShadowMapSampler);
+    // else if (depthDistance < ShadowCascadeFrustumSplits[2].y)
+    //     return Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[2], 2, ShadowTexelSize, CascadedShadowTextures[2], CascadedPcfShadowMapSampler);
+    // else
+    //    return 1.0f;
 }
 float Forward_CalculateCSM(float3 ShadowCoord, float ShadowTexelSize, in Texture2D<float> CascadedShadowTexture, in SamplerComparisonState CascadedPcfShadowMapSampler)
 {

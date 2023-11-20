@@ -830,6 +830,7 @@ namespace EveryRay_Core {
 		mDeferredLightingConstantBuffer.Data.SSSDirectionLightMaxPlane = mSSSDirectionalLightPlaneScale;
 		mDeferredLightingConstantBuffer.Data.SSSAvailable = (mIsSSS && !mIsSSSCulled) ? 1.0f : -1.0f;
 		mDeferredLightingConstantBuffer.Data.HasGlobalProbe = !mProbesManager->IsEnabled() && mProbesManager->AreGlobalProbesReady();
+		mDeferredLightingConstantBuffer.Data.ShadowTransitionScale = mShadowMapper.GetShadowTransitionScale();
 		mDeferredLightingConstantBuffer.ApplyChanges(rhi);
 
 		if (mProbesManager->IsEnabled())

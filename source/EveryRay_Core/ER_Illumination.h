@@ -78,6 +78,7 @@ namespace EveryRay_Core
 			float SSSDirectionLightMaxPlane;
 			float SSSAvailable;
 			bool HasGlobalProbe;
+			float ShadowTransitionScale;
 		};
 		struct ER_ALIGN_GPU_BUFFER ForwardLightingCB
 		{

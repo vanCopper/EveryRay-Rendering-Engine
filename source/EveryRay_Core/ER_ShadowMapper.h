@@ -42,6 +42,7 @@ namespace EveryRay_Core
 		float GetCameraNearShadowCascadeDistance(int index) const;
 		void UpdateFrustomSplitWeight(float weight) { FrustumSplitWeight = weight; }
 		void UpdateShadowTransitionScale(float scale) { ShadowTransitionScale = scale; }
+		float GetShadowTransitionScale() const { return ShadowTransitionScale; }
 
 		// XMMATRIX GetCustomViewProjectionMatrixForCascade(const XMMATRIX& viewMatrix, float fov, float aspectRatio, float nearPlaneDistance, int cascadeIndex) const;
 
