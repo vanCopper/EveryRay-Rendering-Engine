@@ -103,10 +103,6 @@ float Deferred_GetShadow(float4 worldPos, float4x4 ShadowMatrices[NUM_SHADOW_CAS
         return lerp(result, resultNext, transitionFactor);
     }else if(depthDistance < ShadowCascadeFrustumSplits[1].y)
     {
-        // float result = Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[1], 1, ShadowTexelSize, CascadedShadowTextures[1], CascadedPcfShadowMapSampler);
-        // float resultNext = Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[2], 2, ShadowTexelSize, CascadedShadowTextures[2], CascadedPcfShadowMapSampler);
-        // transitionFactor = saturate((depthDistance - ShadowCascadeDistances.y) / (ShadowCascadeDistances.z - ShadowCascadeDistances.y));
-        // return lerp(result, resultNext, transitionFactor);
         return Deferred_CalculateCSM(worldPos.rgb, ShadowMatrices[1], 1, ShadowTexelSize, CascadedShadowTextures[1], CascadedPcfShadowMapSampler);
     }else if(depthDistance < ShadowCascadeFrustumSplits[2].y)
     {
