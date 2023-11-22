@@ -403,8 +403,8 @@ namespace EveryRay_Core
 			FrustumDistances[i - 1].FarDistance = FrustumDistances[i].NearDistance;
 
 			// add fade region between cascades
-			// float Distance = FrustumDistances[i].FarDistance - FrustumDistances[i].NearDistance;
-			// FrustumDistances[i].NearDistance = FrustumDistances[i].NearDistance - Distance * ShadowTransitionScale;
+			float Distance = FrustumDistances[i].FarDistance - FrustumDistances[i].NearDistance;
+			FrustumDistances[i].NearDistance = FrustumDistances[i].NearDistance - Distance * ShadowTransitionScale;
 		}
 
 		FrustumDistances[0].NearDistance = nearClip;
