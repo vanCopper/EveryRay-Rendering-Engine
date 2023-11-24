@@ -121,7 +121,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>ER_API_DX11;ER_COMPILER_VS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\external\JsonCpp\include;$(SolutionDir)\external\ImGUI\;$(SolutionDir)\external\Assimp\lib\x64;$(SolutionDir)\external\Assimp\include;$(SolutionDir)\external\DirectXMath\SHMath;$(SolutionDir)\external\DirectXMath\Inc;$(SolutionDir)\external\DirectXTex\;$(SolutionDir)\external\DirectXTK\Inc;$(WindowsSDK_IncludePath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\external\JsonCpp\include;$(SolutionDir)\external\ImGUI\;$(SolutionDir)\external\Assimp\lib\x64;$(SolutionDir)\external\Assimp\include;$(SolutionDir)\external\DirectXMath\SHMath;$(SolutionDir)\external\DirectXMath\Inc;$(SolutionDir)\external\DirectXTex\;$(SolutionDir)\external\DirectXTK\Inc;$(WindowsSDK_IncludePath);%(AdditionalIncludeDirectories);$(SolutionDir)\source\EveryRay_Core\ThirdParty\</AdditionalIncludeDirectories>
       <OmitFramePointers>false</OmitFramePointers>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -256,6 +256,110 @@
     <ClInclude Include="ER_VertexDeclarations.h" />
     <ClInclude Include="ER_VolumetricClouds.h" />
     <ClInclude Include="ThirdParty\renderdoc_app.h" />
+    <ClInclude Include="ThirdParty\spdlog\async.h" />
+    <ClInclude Include="ThirdParty\spdlog\async_logger-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\async_logger.h" />
+    <ClInclude Include="ThirdParty\spdlog\cfg\argv.h" />
+    <ClInclude Include="ThirdParty\spdlog\cfg\env.h" />
+    <ClInclude Include="ThirdParty\spdlog\cfg\helpers-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\cfg\helpers.h" />
+    <ClInclude Include="ThirdParty\spdlog\common-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\common.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\backtracer-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\backtracer.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\circular_q.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\console_globals.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\file_helper-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\file_helper.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\fmt_helper.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\log_msg-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\log_msg.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\log_msg_buffer-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\log_msg_buffer.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\mpmc_blocking_q.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\null_mutex.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\os-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\os.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\periodic_worker-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\periodic_worker.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\registry-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\registry.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\synchronous_factory.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\tcp_client-windows.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\tcp_client.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\thread_pool-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\thread_pool.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\udp_client-windows.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\udp_client.h" />
+    <ClInclude Include="ThirdParty\spdlog\details\windows_include.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\bin_to_hex.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\bundled\args.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\bundled\chrono.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\bundled\color.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\bundled\compile.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\bundled\core.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\bundled\format-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\bundled\format.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\bundled\locale.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\bundled\os.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\bundled\ostream.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\bundled\printf.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\bundled\ranges.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\bundled\std.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\bundled\xchar.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\chrono.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\compile.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\fmt.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\ostr.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\ranges.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\std.h" />
+    <ClInclude Include="ThirdParty\spdlog\fmt\xchar.h" />
+    <ClInclude Include="ThirdParty\spdlog\formatter.h" />
+    <ClInclude Include="ThirdParty\spdlog\fwd.h" />
+    <ClInclude Include="ThirdParty\spdlog\logger-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\logger.h" />
+    <ClInclude Include="ThirdParty\spdlog\pattern_formatter-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\pattern_formatter.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\android_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\ansicolor_sink-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\ansicolor_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\base_sink-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\base_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\basic_file_sink-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\basic_file_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\callback_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\daily_file_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\dist_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\dup_filter_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\hourly_file_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\kafka_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\mongo_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\msvc_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\null_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\ostream_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\qt_sinks.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\ringbuffer_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\rotating_file_sink-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\rotating_file_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\sink-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\stdout_color_sinks-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\stdout_color_sinks.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\stdout_sinks-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\stdout_sinks.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\syslog_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\systemd_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\tcp_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\udp_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\wincolor_sink-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\wincolor_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\sinks\win_eventlog_sink.h" />
+    <ClInclude Include="ThirdParty\spdlog\spdlog-inl.h" />
+    <ClInclude Include="ThirdParty\spdlog\spdlog.h" />
+    <ClInclude Include="ThirdParty\spdlog\stopwatch.h" />
+    <ClInclude Include="ThirdParty\spdlog\tweakme.h" />
+    <ClInclude Include="ThirdParty\spdlog\version.h" />
+    <ClInclude Include="Utility\ER_RenderDocCapture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\external\DirectXMath\SHMath\DirectXSH.cpp" />
@@ -327,6 +431,7 @@
     <ClCompile Include="ER_Terrain.cpp" />
     <ClCompile Include="ER_Utility.cpp" />
     <ClCompile Include="ER_VectorHelper.cpp" />
+    <ClCompile Include="Utility\ER_RenderDocCapture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\..\content\shaders\BasicColor.hlsl">
@@ -504,6 +609,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
     <None Include="ER_Materials.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ThirdParty\spdlog\fmt\bundled\fmt.license.rst" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
