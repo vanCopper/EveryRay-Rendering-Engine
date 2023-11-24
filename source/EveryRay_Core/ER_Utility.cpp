@@ -18,9 +18,6 @@ namespace EveryRay_Core
 	float ER_Utility::DistancesLOD[MAX_LOD] = { 200.0f, 500.0f, 2000.0f };
 	float ER_Utility::ShadowCascadeDistances[NUM_SHADOW_CASCADES] = { 50.0f, 800.0f, 2000.0f };
 
-	HMODULE ER_Utility::mRenderDocDLL = nullptr;
-	RENDERDOC_API_1_1_1* ER_Utility::mRenderDocAPI = nullptr;
-
 	std::string ER_Utility::CurrentDirectory()
 	{
 		WCHAR buffer[MAX_PATH];
@@ -173,50 +170,5 @@ namespace EveryRay_Core
 		float diff = b - a;
 		float r = random * diff;
 		return a + r;
-	}
-
-	void ER_Utility::InitializeRenderDoc()
-	{
-		mRenderDocDLL = GetModuleHandleA("renderdoc.dll");
-
-		if(mRenderDocDLL == nullptr)
-		{
-			std::string renderdocPath = GetFilePath("external\\Renderdoc\\lib\\renderdoc.dll");
-			mRenderDocDLL = LoadLibraryA(renderdocPath.c_str());
-		}
-
-		if(mRenderDocDLL == nullptr)
-		{
-			return;
-		}		
-
-		pRENDERDOC_GetAPI RENDERDOC_GetAPI = (pRENDERDOC_GetAPI)GetProcAddress(mRenderDocDLL, "RENDERDOC_GetAPI");
-		if(RENDERDOC_GetAPI == nullptr)
-		{
-			return;
-		}
-
-		if(RENDERDOC_GetAPI(eRENDERDOC_API_Version_1_1_1, (void**)&mRenderDocAPI) != 1)
-		{
-			return;
-			//TODO: Log error
-		}
-
-		// mRenderDocAPI->SetActiveWindow(nullptr, GetActiveWindow());
-
-		mRenderDocAPI->SetLogFilePathTemplate("../Saved/Captures");
-		mRenderDocAPI->SetFocusToggleKeys(nullptr, 0);
-		mRenderDocAPI->SetCaptureKeys(nullptr, 0);
-
-		mRenderDocAPI->SetCaptureOptionU32(eRENDERDOC_Option_CaptureCallstacks, 1);
-		mRenderDocAPI->SetCaptureOptionU32(eRENDERDOC_Option_RefAllResources, 1);
-		mRenderDocAPI->SetCaptureOptionU32(eRENDERDOC_Option_SaveAllInitials, 1);
-
-		mRenderDocAPI->MaskOverlayBits(eRENDERDOC_Overlay_None, eRENDERDOC_Overlay_None);
-	}
-
-	RENDERDOC_API_1_1_1* ER_Utility::GetRenderDocAPI()
-	{
-		return mRenderDocAPI;
 	}
 }

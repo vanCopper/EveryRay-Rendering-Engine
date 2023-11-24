@@ -27,10 +27,6 @@ namespace EveryRay_Core
 		static void GetPathExtension(const std::wstring& source, std::wstring& dest);
 		static float RandomFloat(float a, float b);
 
-		// Replace with: https://sourcegraph.com/github.com/nCine/nCine/-/blob/src/graphics/RenderDocCapture.cpp
-		static void InitializeRenderDoc();
-		static RENDERDOC_API_1_1_1* GetRenderDocAPI();
-
 		static bool IsEditorMode;
 		static bool IsLightEditor;
 		static bool IsFoliageEditor;
@@ -45,8 +41,5 @@ namespace EveryRay_Core
 		ER_Utility();
 		ER_Utility(const ER_Utility& rhs);
 		ER_Utility& operator=(const ER_Utility& rhs);
-
-		static HMODULE mRenderDocDLL;
-		static RENDERDOC_API_1_1_1* mRenderDocAPI;
 	};
 }

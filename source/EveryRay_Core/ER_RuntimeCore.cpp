@@ -16,6 +16,8 @@
 #include "ER_Model.h"
 
 #include "..\JsonCpp\include\json\json.h"
+#include "spdlog/spdlog.h"
+#include "Utility/ER_RenderDocCapture.h"
 
 namespace EveryRay_Core
 {
@@ -366,13 +368,37 @@ namespace EveryRay_Core
 
 		// Debug tool
 		ImGui::Begin("RenderDoc");
-		ImGui::Text("RenderDoc API: %d.%d.%d", 1.0, 0.0, 0.0);
-		if(ImGui::Button("Capture and Launch RenderDoc"))
 		{
-			mIsCaputureActive = true;
-			// ER_Utility::GetRenderDocAPI()->LaunchReplayUI(1, nullptr);
-			// ER_Utility::GetRenderDocAPI()->EndFrameCapture(nullptr, nullptr);
+			int major = 0, minor = 0, patch = 0;
+			if(ER_RenderDocCapture::IsAvailable())
+				ER_RenderDocCapture::ApiVersion(&major, &minor, &patch);
+			ImGui::Text("RenderDoc API: %d.%d.%d", major, minor, patch);
 		}
+
+		if(ER_RenderDocCapture::IsFrameCapturing())
+		{
+			ImGui::TextUnformatted("Capturing a frame...");
+		}
+		else
+		{
+			if(ImGui::Button("Capture"))
+			{
+				ER_RenderDocCapture::TriggerMultiFrameCapture(1);
+			}
+		}
+		
+		if(ER_RenderDocCapture::IsTargetControlConnected())
+		{
+			ImGui::TextUnformatted("Replay UI is connected.");
+		}
+		else
+		{
+			if(ImGui::Button("Launch Replay UI"))
+			{
+				ER_RenderDocCapture::LaunchReplayUI(1, nullptr);
+			}
+		}
+		
 		ImGui::End();
 		#pragma endregion
 	}
@@ -409,16 +435,6 @@ namespace EveryRay_Core
 		assert(mCurrentSandbox);
 		assert(mRHI);
 		
-		if(mIsCaputureActive && ER_Utility::GetRenderDocAPI())
-		{
-			ER_Utility::GetRenderDocAPI()->StartFrameCapture(nullptr, nullptr);
-			// ER_Utility::GetRenderDocAPI()->StartFrameCapture(dx11->GetDevice(), GetActiveWindow());
-			// ER_Utility::GetRenderDocAPI()->TriggerMultiFrameCapture(1);
-			// ER_Utility::GetRenderDocAPI()->StartFrameCapture(nullptr, nullptr);
-			// mIsCaputureActive = false;
-			// mCaputureTime = std::chrono::duration<double>(0.0f);
-		}
-		
 		auto startRenderTimer = std::chrono::high_resolution_clock::now();
 
 		mRHI->BeginGraphicsCommandList();
@@ -443,13 +459,6 @@ namespace EveryRay_Core
 
 		auto endRenderTimer = std::chrono::high_resolution_clock::now();
 		mElapsedTimeRenderCPU = endRenderTimer - startRenderTimer;
-		
-		if(ER_Utility::GetRenderDocAPI() && ER_Utility::GetRenderDocAPI()->IsFrameCapturing())
-		{
-			auto result = ER_Utility::GetRenderDocAPI()->EndFrameCapture(nullptr, nullptr);
-			mIsCaputureActive = false;
-			ER_Utility::GetRenderDocAPI()->LaunchReplayUI(1, nullptr);
-		}
 	}
 
 	ER_Model* ER_RuntimeCore::AddOrGet3DModelFromCache(const std::string& aFullPath, bool* didExist /*= nullptr*/, bool isSilent /*= false*/)
