@@ -383,7 +383,8 @@ namespace EveryRay_Core
 		{
 			if(ImGui::Button("Capture"))
 			{
-				ER_RenderDocCapture::TriggerMultiFrameCapture(1);
+				// ER_RenderDocCapture::TriggerMultiFrameCapture(1);
+				ER_RenderDocCapture::TriggerCapture();
 			}
 		}
 		
