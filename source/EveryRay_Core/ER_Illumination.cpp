@@ -753,14 +753,15 @@ namespace EveryRay_Core {
 				ImGui::Checkbox("DEBUG - Specular probes", &mDrawSpecularProbes);
 			}
 		}
-		if (ImGui::CollapsingHeader("Shadow Properties"))
-		{
-			ImGui::SliderFloat("Cascade #0 distance", &ER_Utility::ShadowCascadeDistances[0], 0.0f, 300.0f);
-			ImGui::SliderFloat("Cascade #1 distance", &ER_Utility::ShadowCascadeDistances[1], ER_Utility::ShadowCascadeDistances[0], 1000.0f);
-			ImGui::SliderFloat("Cascade #2 distance", &ER_Utility::ShadowCascadeDistances[2], ER_Utility::ShadowCascadeDistances[1], 5000.0f);
-			
-			ImGui::Checkbox("DEBUG - Shadow cascades", &mDebugShadowCascades);
-		}
+		
+		// if (ImGui::CollapsingHeader("Shadow Properties"))
+		// {
+		// 	ImGui::SliderFloat("Cascade #0 distance", &ER_Utility::ShadowCascadeDistances[0], 0.0f, 300.0f);
+		// 	ImGui::SliderFloat("Cascade #1 distance", &ER_Utility::ShadowCascadeDistances[1], ER_Utility::ShadowCascadeDistances[0], 1000.0f);
+		// 	ImGui::SliderFloat("Cascade #2 distance", &ER_Utility::ShadowCascadeDistances[2], ER_Utility::ShadowCascadeDistances[1], 5000.0f);
+		// 	
+		// 	ImGui::Checkbox("DEBUG - Shadow cascades", &mDebugShadowCascades);
+		// }
 
 		ImGui::End();
 	}

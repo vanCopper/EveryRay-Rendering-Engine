@@ -26,5 +26,5 @@
 			"scene_path" : "content\\levels\\ShadowTech\\"
 		}
 	],
-	"startup_scene" : "ShadowTech"
+	"startup_scene" : "sponzaScene"
 }
