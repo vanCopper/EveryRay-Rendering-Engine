@@ -29,6 +29,7 @@
 	[
 		{
 			"instanced" : false,
+			"castShadow" : false,
 			"model_path" : "content\\models\\default_plane\\default_plane.fbx",
 			"name" : "Ground Plane",
 			"new_materials" : 
@@ -72,6 +73,7 @@
 		},
 		{
 			"instanced" : false,
+			"castShadow" : true,
 			"model_path" : "content\\models\\vegetation\\trees\\acer\\tree_acer_middle2.fbx",
 			"name" : "Acer Tree",
 			"new_materials" : 
@@ -123,6 +125,7 @@
 		},
 		{
 			"instanced" : false,
+			"castShadow" : true,
 			"model_lods" : 
 			[
 				{
@@ -181,6 +184,7 @@
 		},
 		{
 			"instanced" : false,
+			"castShadow" : true,
 			"model_path" : "content\\models\\sphere.fbx",
 			"name" : "Dynamic sphere White",
 			"new_materials" : 
@@ -223,6 +227,7 @@
 		},
 		{
 			"instanced" : false,
+			"castShadow" : true,
 			"model_path" : "content\\models\\sponza\\sponza.fbx",
 			"name" : "Sponza",
 			"new_materials" : 
