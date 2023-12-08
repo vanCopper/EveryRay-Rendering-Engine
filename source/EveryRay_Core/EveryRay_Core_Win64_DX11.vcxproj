@@ -238,6 +238,12 @@
     <ClInclude Include="ER_Ray.h" />
     <ClInclude Include="ER_RenderableAABB.h" />
     <ClInclude Include="ER_RenderingObject.h" />
+    <ClInclude Include="RenderGraph\Bindable.h" />
+    <ClInclude Include="RenderGraph\BufferClearPass.h" />
+    <ClInclude Include="RenderGraph\BufferResource.h" />
+    <ClInclude Include="RenderGraph\ER_Pass.h" />
+    <ClInclude Include="RenderGraph\GraphicsResource.h" />
+    <ClInclude Include="RenderGraph\RenderGraphContext.h" />
     <ClInclude Include="RHI\DX11\ER_RHI_DX11.h" />
     <ClInclude Include="RHI\DX11\ER_RHI_DX11_GPUBuffer.h" />
     <ClInclude Include="RHI\DX11\ER_RHI_DX11_GPUShader.h" />
@@ -415,6 +421,11 @@
     <ClCompile Include="ER_Ray.cpp" />
     <ClCompile Include="ER_RenderableAABB.cpp" />
     <ClCompile Include="ER_FresnelOutlineMaterial.cpp" />
+    <ClCompile Include="RenderGraph\Bindable.cpp" />
+    <ClCompile Include="RenderGraph\BufferClearPass.cpp" />
+    <ClCompile Include="RenderGraph\ER_Pass.cpp" />
+    <ClCompile Include="RenderGraph\GraphicsResource.cpp" />
+    <ClCompile Include="RenderGraph\RenderGraphContext.cpp" />
     <ClCompile Include="RHI\DX11\ER_RHI_DX11.cpp" />
     <ClCompile Include="RHI\DX11\ER_RHI_DX11_GPUBuffer.cpp" />
     <ClCompile Include="RHI\DX11\ER_RHI_DX11_GPUShader.cpp" />
