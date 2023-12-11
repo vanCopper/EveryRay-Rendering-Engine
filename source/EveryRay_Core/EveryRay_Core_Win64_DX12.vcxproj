@@ -238,12 +238,11 @@
     <ClInclude Include="ER_Ray.h" />
     <ClInclude Include="ER_RenderableAABB.h" />
     <ClInclude Include="ER_RenderingObject.h" />
-    <ClInclude Include="RenderGraph\Bindable.h" />
-    <ClInclude Include="RenderGraph\BufferClearPass.h" />
     <ClInclude Include="RenderGraph\BufferResource.h" />
-    <ClInclude Include="RenderGraph\ER_Pass.h" />
     <ClInclude Include="RenderGraph\GraphicsResource.h" />
     <ClInclude Include="RenderGraph\RenderGraphContext.h" />
+    <ClInclude Include="RenderGraph\RenderGraphPass.h" />
+    <ClInclude Include="RenderGraph\RenderGraphResourceId.h" />
     <ClInclude Include="RHI\DX12\ER_RHI_DX12.h" />
     <ClInclude Include="RHI\DX12\ER_RHI_DX12_GPUBuffer.h" />
     <ClInclude Include="RHI\DX12\ER_RHI_DX12_GPUDescriptorHeapManager.h" />
@@ -426,11 +425,9 @@
     <ClCompile Include="ER_Scene.cpp" />
     <ClCompile Include="ER_CoreServicesContainer.cpp" />
     <ClCompile Include="ER_ShadowMapper.cpp" />
-    <ClCompile Include="RenderGraph\Bindable.cpp" />
-    <ClCompile Include="RenderGraph\BufferClearPass.cpp" />
-    <ClCompile Include="RenderGraph\ER_Pass.cpp" />
     <ClCompile Include="RenderGraph\GraphicsResource.cpp" />
     <ClCompile Include="RenderGraph\RenderGraphContext.cpp" />
+    <ClCompile Include="RenderGraph\RenderGraphPass.cpp" />
     <ClCompile Include="RHI\DX12\ER_RHI_DX12.cpp" />
     <ClCompile Include="RHI\DX12\ER_RHI_DX12_GPUBuffer.cpp" />
     <ClCompile Include="RHI\DX12\ER_RHI_DX12_GPUDescriptorHeapManager.cpp" />
