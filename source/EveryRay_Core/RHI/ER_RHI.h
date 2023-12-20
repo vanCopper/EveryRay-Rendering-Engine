@@ -83,7 +83,7 @@ namespace EveryRay_Core
 		ER_SHADOW_RS/* this is dirty */
 	};
 
-	enum ER_RHI_RESOURCE_STATE
+	enum class ER_RHI_RESOURCE_STATE
 	{
 		ER_RESOURCE_STATE_COMMON,
 		ER_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER,
@@ -472,6 +472,7 @@ namespace EveryRay_Core
 	{
 	public:
 		ER_RHI_GPUTexture() {}
+		ER_RHI_GPUTexture(ER_RHI_GPUTexture const&)=delete;
 		virtual ~ER_RHI_GPUTexture() {}
 
 		virtual void CreateGPUTextureResource(ER_RHI* aRHI, UINT width, UINT height, UINT samples, ER_RHI_FORMAT format, ER_RHI_BIND_FLAG bindFlags = ER_BIND_NONE,

@@ -121,7 +121,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>ER_API_DX12;ER_COMPILER_VS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\external\JsonCpp\include;$(SolutionDir)\external\ImGUI\;$(SolutionDir)\external\Assimp\lib\x64;$(SolutionDir)\external\Assimp\include;$(SolutionDir)\external\DirectXMath\SHMath;$(SolutionDir)\external\DirectXMath\Inc;$(SolutionDir)\external\DirectXTex\;$(SolutionDir)\external\DirectXTK12\Inc;$(WindowsSDK_IncludePath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\external\JsonCpp\include;$(SolutionDir)\external\ImGUI\;$(SolutionDir)\external\Assimp\lib\x64;$(SolutionDir)\external\Assimp\include;$(SolutionDir)\external\DirectXMath\SHMath;$(SolutionDir)\external\DirectXMath\Inc;$(SolutionDir)\external\DirectXTex\;$(SolutionDir)\external\DirectXTK12\Inc;$(WindowsSDK_IncludePath);%(AdditionalIncludeDirectories);$(SolutionDir)\source\EveryRay_Core\ThirdParty\</AdditionalIncludeDirectories>
       <OmitFramePointers>false</OmitFramePointers>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -238,11 +238,14 @@
     <ClInclude Include="ER_Ray.h" />
     <ClInclude Include="ER_RenderableAABB.h" />
     <ClInclude Include="ER_RenderingObject.h" />
-    <ClInclude Include="RenderGraph\BufferResource.h" />
-    <ClInclude Include="RenderGraph\GraphicsResource.h" />
+    <ClInclude Include="RenderGraph\RenderGraph.h" />
+    <ClInclude Include="RenderGraph\RenderGraphBlackboard.h" />
+    <ClInclude Include="RenderGraph\RenderGraphBuilder.h" />
     <ClInclude Include="RenderGraph\RenderGraphContext.h" />
     <ClInclude Include="RenderGraph\RenderGraphPass.h" />
     <ClInclude Include="RenderGraph\RenderGraphResourceId.h" />
+    <ClInclude Include="RenderGraph\RenderGraphResourceName.h" />
+    <ClInclude Include="RenderGraph\RenderGraphResourcePool.h" />
     <ClInclude Include="RHI\DX12\ER_RHI_DX12.h" />
     <ClInclude Include="RHI\DX12\ER_RHI_DX12_GPUBuffer.h" />
     <ClInclude Include="RHI\DX12\ER_RHI_DX12_GPUDescriptorHeapManager.h" />
@@ -425,7 +428,8 @@
     <ClCompile Include="ER_Scene.cpp" />
     <ClCompile Include="ER_CoreServicesContainer.cpp" />
     <ClCompile Include="ER_ShadowMapper.cpp" />
-    <ClCompile Include="RenderGraph\GraphicsResource.cpp" />
+    <ClCompile Include="RenderGraph\RenderGraph.cpp" />
+    <ClCompile Include="RenderGraph\RenderGraphBuilder.cpp" />
     <ClCompile Include="RenderGraph\RenderGraphContext.cpp" />
     <ClCompile Include="RenderGraph\RenderGraphPass.cpp" />
     <ClCompile Include="RHI\DX12\ER_RHI_DX12.cpp" />

@@ -21,7 +21,7 @@ namespace EveryRay_Core
 
     struct RenderGraphResourceId
     {
-        inline constexpr static uint32_t invalid_id = uint32_t(-1);
+        constexpr static uint32_t invalid_id = uint32_t(-1);
 
         RenderGraphResourceId() : id(invalid_id) {}
         RenderGraphResourceId(RenderGraphResourceId const&) = default;
@@ -82,7 +82,7 @@ namespace EveryRay_Core
 
     struct RenderGraphResourceDescriptorId
     {
-        inline constexpr static uint64_t invalid_id = uint64_t(-1);
+        constexpr static uint64_t invalid_id = uint64_t(-1);
 
         RenderGraphResourceDescriptorId() : id(invalid_id) {}
         RenderGraphResourceDescriptorId(uint64_t viewId, RenderGraphResourceId resourceHandle)
@@ -118,6 +118,70 @@ namespace EveryRay_Core
         ReadWrite,
         RenderTarget,
         DepthStencil
+    };
+
+    enum RGTextureDescriptorFlags : uint8_t
+    {
+        RGTextureDescriptorFlag_None = 0x0,
+        RGTextureDescriptorFlag_DepthReadOnly = 0x1
+    };
+
+    enum RGTextureChannelMapping : uint32_t
+    {
+        RGTextureChannelMapping_Red,
+        RGTextureChannelMapping_Green,
+        RGTextureChannelMapping_Blue,
+        RGTextureChannelMapping_Alpha,
+        RGTextureChannelMapping_Zero,
+        RGTextureChannelMapping_One,
+    };
+
+    constexpr RGTextureChannelMapping CustomTextureChannelMapping(RGTextureChannelMapping R, RGTextureChannelMapping G,
+        RGTextureChannelMapping B, RGTextureChannelMapping A)
+    {
+        constexpr uint32_t TextureChannelMappingMask = 0x7;
+        constexpr uint32_t TextureChannelMappingShift = 3;
+        constexpr uint32_t TextureChannelMappingAlwaysSetBit = 1 << (TextureChannelMappingShift * 4);
+
+        return RGTextureChannelMapping(
+            (((R)&TextureChannelMappingMask) << (TextureChannelMappingShift * 0)) |
+            (((G)&TextureChannelMappingMask) << (TextureChannelMappingShift * 1)) |
+            (((B)&TextureChannelMappingMask) << (TextureChannelMappingShift * 2)) |
+            (((A)&TextureChannelMappingMask) << (TextureChannelMappingShift * 3)) |
+            TextureChannelMappingAlwaysSetBit);
+    }
+
+    constexpr RGTextureChannelMapping RGDefaultTextureChannelMapping = CustomTextureChannelMapping(RGTextureChannelMapping_Red, RGTextureChannelMapping_Green,
+        RGTextureChannelMapping_Blue, RGTextureChannelMapping_Alpha);
+    constexpr RGTextureChannelMapping RGAlphaOneTextureChannelMapping = CustomTextureChannelMapping(RGTextureChannelMapping_Red, RGTextureChannelMapping_Green,
+        RGTextureChannelMapping_Blue, RGTextureChannelMapping_One);
+    
+    struct RGTextureDescriptorDesc
+    {
+        uint32_t firstSlice = 0;
+        uint32_t sliceCount = static_cast<uint32_t>(-1);
+        uint32_t firstMip = 0;
+        uint32_t mipCount = static_cast<uint32_t>(-1);
+
+        RGTextureDescriptorFlags flags = RGTextureDescriptorFlag_None;
+        RGTextureChannelMapping channelMapping = RGDefaultTextureChannelMapping;
+        // std::strong_ordering operator<=>(RGTextureDescriptorDesc const& other) const = default;
+        //TODO:
+        // bool operator == (RGTextureDescriptorDesc const& other) const = default;
+        // bool operator != (RGTextureDescriptorDesc const& other) const { return this->id != other.id; }
+    };
+
+    struct RGBufferDescriptorDesc
+    {
+        uint64_t offset = 0;
+        uint64_t size = uint64_t(-1);
+        // std::strong_ordering operator<=>(RGBufferDescriptorDesc const& other) const = default;
+    };
+    struct RGTextureInitialData
+    {
+        void const* data;
+        uint64_t rowPitch;
+        uint64_t slicePitch;
     };
 
     template<RGResourceType ResourceType, RGDescriptorType ResourceViewType>
@@ -168,27 +232,69 @@ namespace EveryRay_Core
   
 }
 
-
-template <> struct hash<EveryRay_Core::RGTextureId>
+namespace std
 {
-    uint64_t operator()(EveryRay_Core::RGTextureId const& h) const
+    template <> struct hash<EveryRay_Core::RGTextureId>
     {
-        return hash<decltype(h.id)>()(h.id);
-    }
-};
+        uint64_t operator()(EveryRay_Core::RGTextureId const& h) const
+        {
+            return hash<decltype(h.id)>()(h.id);
+        }
+    };
 
-template <> struct hash<EveryRay_Core::RGBufferId>
-{
-    uint64_t operator()(EveryRay_Core::RGBufferId const& h) const
+    template <> struct hash<EveryRay_Core::RGBufferId>
     {
-        return hash<decltype(h.id)>()(h.id);
-    }
-};
+        uint64_t operator()(EveryRay_Core::RGBufferId const& h) const
+        {
+            return hash<decltype(h.id)>()(h.id);
+        }
+    };
 
-template <> struct hash<EveryRay_Core::RGTextureReadOnlyId>
-{
-    uint64_t operator()(EveryRay_Core::RGTextureReadOnlyId const& h) const
+    template <> struct hash<EveryRay_Core::RGTextureReadOnlyId>
     {
-        return hash<decltype(h.id)>()(h.id);
-    }
-};
+        uint64_t operator()(EveryRay_Core::RGTextureReadOnlyId const& h) const
+        {
+            return hash<decltype(h.id)>()(h.id);
+        }
+    };
+
+    template <> struct hash<EveryRay_Core::RGTextureReadWriteId>
+    {
+        uint64_t operator()(EveryRay_Core::RGTextureReadWriteId const& h) const
+        {
+            return hash<decltype(h.id)>()(h.id);
+        }
+    };
+
+    template <> struct hash<EveryRay_Core::RGRenderTargetId>
+    {
+        uint64_t operator()(EveryRay_Core::RGRenderTargetId const& h) const
+        {
+            return hash<decltype(h.id)>()(h.id);
+        }
+    };
+
+    template <> struct hash<EveryRay_Core::RGDepthStencilId>
+    {
+        uint64_t operator()(EveryRay_Core::RGDepthStencilId const& h) const
+        {
+            return hash<decltype(h.id)>()(h.id);
+        }
+    };
+
+    template <> struct hash<EveryRay_Core::RGBufferReadOnlyId>
+    {
+        uint64_t operator()(EveryRay_Core::RGBufferReadOnlyId const& h) const
+        {
+            return hash<decltype(h.id)>()(h.id);
+        }
+    };
+
+    template <> struct hash<EveryRay_Core::RGBufferReadWriteId>
+    {
+        uint64_t operator()(EveryRay_Core::RGBufferReadWriteId const& h) const
+        {
+            return hash<decltype(h.id)>()(h.id);
+        }
+    };
+}

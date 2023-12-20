@@ -1,5 +1,13 @@
 #pragma once
 #include <cstdint>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+
+#include "RenderGraphResourceId.h"
+
+enum class ER_RHI_RESOURCE_STATE;
 
 namespace EveryRay_Core
 {
@@ -68,10 +76,63 @@ namespace EveryRay_Core
         load_op = static_cast<RGLoadAccessOp>(((uint8_t)load_store_op >> 2) & 0b11);
     }
     
+    class RenderGraph;
+    class RenderGraphBuilder;
     
-    class RenderGraphPass
+    class RenderGraphPassBase
     {
+        friend RenderGraph;
+        // friend RenderGraphBuilder;
+
+        struct RenderTargetInfo
+        {
+            RGRenderTargetId render_target_handle;
+            RGLoadStoreAccessOp render_target_access;
+        };
+
+        struct DepthStencilInfo
+        {
+            RGDepthStencilId depth_stencil_handle;
+            RGLoadStoreAccessOp depth_access;
+            RGLoadStoreAccessOp stencil_access;
+            bool depth_read_only;
+        };
+
+       static uint32_t unique_pass_id;
+        
     public:
-    
+        explicit RenderGraphPassBase(char const* name, RGPassType type = RGPassType::Graphics, RGPassFlags flags = RGPassFlags::None)
+            : name(name), type(type), flags(flags){}
+        virtual ~RenderGraphPassBase() = default;
+
+    private:
+        std::string const name;
+        uint64_t ref_count = 0;
+        RGPassType type;
+        RGPassFlags flags = RGPassFlags::None;
+        uint64_t id;
+
+        std::unordered_set<RGTextureId> texture_creates;
+        std::unordered_set<RGTextureId> texture_reads;
+        std::unordered_set<RGTextureId> texture_writes;
+        std::unordered_set<RGTextureId> texture_destroys;
+        std::unordered_map<RGTextureId, ER_RHI_RESOURCE_STATE> texture_state_map;
+
+        std::unordered_set<RGBufferId> buffer_creates;
+        std::unordered_set<RGBufferId> buffer_reads;
+        std::unordered_set<RGBufferId> buffer_writes;
+        std::unordered_set<RGBufferId> buffer_destroys;
+        std::unordered_map<RGBufferId, ER_RHI_RESOURCE_STATE> buffer_state_map;
+
+        std::vector<RenderTargetInfo> render_targets_info;
+        std::unique_ptr<DepthStencilInfo> depth_stencil = nullptr;
+        uint32_t viewport_width = 0;
+        uint32_t viewport_height = 0;
+    };
+    using RGPassBase = RenderGraphPassBase;
+
+    template <typename PassData>
+    class RenderGraphPass final : public RenderGraphPassBase
+    {
     };
 }
