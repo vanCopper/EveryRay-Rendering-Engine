@@ -19,6 +19,13 @@ namespace EveryRay_Core
         Constant
     };
 
+    enum RGTextureType : uint8_t
+    {
+        RGTextureType_1D,
+        RGTextureType_2D,
+        RGTextureType_3D
+    };
+
     struct RenderGraphResourceId
     {
         constexpr static uint32_t invalid_id = uint32_t(-1);

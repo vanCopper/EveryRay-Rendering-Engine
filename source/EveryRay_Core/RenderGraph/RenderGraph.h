@@ -108,6 +108,70 @@ namespace EveryRay_Core
         void CalculateResourceLifetime();
         void DepthFirstSearch(uint64_t i, std::vector<bool>& visited, std::stack<uint64_t>& stack);
 
-        // RGTextureId DeclareTexture(RGResourceName name, RGTextureDesc const& desc);
+        RGTextureId DeclareTexture(RGResourceName name, RGTextureDesc const& desc);
+        RGBufferId DeclareBuffer(RGResourceName name, RGBufferDesc const& desc);
+
+        bool IsTexureDeclared(RGResourceName name) const;
+        bool IsBufferDeclared(RGResourceName name) const;
+
+        bool IsValidTextureHandle(RGTextureId id) const;
+        bool IsValidBufferHandle(RGBufferId id) const;
+
+        ER_RHI_GPUTexture* GetTexture(RGTextureId id) const;
+        ER_RHI_GPUBuffer* GetBuffer(RGBufferId id) const;
+
+        RGTextureId GetTextureId(RGResourceName name) const;
+        RGBufferId GetBufferId(RGResourceName name) const;
+
+        RGTextureDesc GetTextureDesc(RGTextureId id);
+        RGBufferDesc GetBufferDesc(RGBufferId id);
+
+        void AddBufferBindFlags(RGBufferId id, ER_RHI_BIND_FLAG bind_flag);
+        void AddTextureBindFlags(RGTextureId id, ER_RHI_BIND_FLAG bind_flag);
+
+        RGTextureCopySrcId ReadCopySrcTexture(RGResourceName name);
+        RGTextureCopyDstId WriteCopyDstTexture(RGResourceName name);
+        RGBufferCopySrcId ReadCopySrcBuffer(RGResourceName name);
+        RGBufferCopyDstId WriteCopyDstBuffer(RGResourceName name);
+        RGBufferIndirectArgsId ReadIndirectArgsBuffer(RGResourceName name);
+        RGBufferVertexId  ReadVertexBuffer(RGResourceName);
+        RGBufferIndexId  ReadIndexBuffer(RGResourceName);
+        RGBufferConstantId  ReadConstantBuffer(RGResourceName);
+
+        RGRenderTargetId RenderTarget(RGResourceName name, RGTextureDescriptorDesc const& desc);
+        RGDepthStencilId DepthStencil(RGResourceName name, RGTextureDescriptorDesc const& desc);
+        RGTextureReadOnlyId ReadTexture(RGResourceName name, RGTextureDescriptorDesc const& desc);
+        RGTextureReadWriteId WriteTexture(RGResourceName name, RGTextureDescriptorDesc const& desc);
+        RGBufferReadOnlyId ReadBuffer(RGResourceName name, RGTextureDescriptorDesc const& desc);
+        RGBufferReadWriteId WriteBuffer(RGResourceName name, RGTextureDescriptorDesc const& desc);
+        RGBufferReadWriteId WriteBuffer(RGResourceName name, RGResourceName counter_name, RGTextureDescriptorDesc const& desc);
+
+        ER_RHI_GPUTexture const& GetCopySrcTexture(RGTextureCopySrcId) const;
+        ER_RHI_GPUTexture&		  GetCopyDstTexture(RGTextureCopyDstId) const;
+        ER_RHI_GPUBuffer const&  GetCopySrcBuffer(RGBufferCopySrcId) const;
+        ER_RHI_GPUBuffer&		  GetCopyDstBuffer(RGBufferCopyDstId) const;
+        ER_RHI_GPUBuffer const& GetIndirectArgsBuffer(RGBufferIndirectArgsId) const;
+        ER_RHI_GPUBuffer const& GetVertexBuffer(RGBufferVertexId) const;
+        ER_RHI_GPUBuffer const& GetIndexBuffer(RGBufferIndexId) const;
+        ER_RHI_GPUBuffer const& GetConstantBuffer(RGBufferConstantId) const;
+
+        ER_RHI_DX12_DescriptorHandle GetRenderTarget(RGRenderTargetId) const;
+        ER_RHI_DX12_DescriptorHandle GetDepthStencil(RGDepthStencilId) const;
+        ER_RHI_DX12_DescriptorHandle GetReadOnlyTexture(RGTextureReadOnlyId) const;
+        ER_RHI_DX12_DescriptorHandle GetReadWriteTexture(RGTextureReadWriteId) const;
+        ER_RHI_DX12_DescriptorHandle GetReadOnlyBuffer(RGBufferReadOnlyId) const;
+        ER_RHI_DX12_DescriptorHandle GetReadWriteBuffer(RGBufferReadWriteId) const;
+
+        ER_RHI_GPUTexture* GetTexture(RGTextureId id);
+        ER_RHI_GPUBuffer* GetBuffer(RGBufferId id);
+
+        void CreateTextureViews(RGTextureId id);
+        void CreateBufferViews(RGBufferId id);
+
+        void Execute_Singlethreaded();
+        void Execute_Multithreaded();
+
+        void AddExportBufferCopyPass(RGResourceName export_buffer, ER_RHI_GPUBuffer* buffer);
+        void AddExportTextureCopyPass(RGResourceName export_texture, ER_RHI_GPUTexture* texture);
     };
 }
